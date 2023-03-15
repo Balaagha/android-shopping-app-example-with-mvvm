@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RoundedCornersDialog_Low" parent="@style/Theme.MaterialComponents.Dialog">
+        <item name="dialogCornerRadius">5dp</item>
+    </style>
+    <style name="RoundedCornersDialog_Mid" parent="@style/Theme.MaterialComponents.Dialog">
+        <item name="dialogCornerRadius">15dp</item>
+    </style>
+    <style name="RoundedCornersDialog_High" parent="@style/Theme.MaterialComponents.Dialog">
+        <item name="dialogCornerRadius">25dp</item>
+    </style>
+    <style name="RoundedCornersDialog_Ultra_High" parent="@style/Theme.MaterialComponents.Dialog">
+        <item name="dialogCornerRadius">35dp</item>
+    </style>
+
+    <style name="Controls" />
+    <style name="Toolkit" />
+
+    <!--  text start  -->
+
+    <!--  text end  -->
+
+    <!--  buttons start  -->
+
+    <style name="Controls.Buttons.TextAppearance" parent="MMediumBlack" >
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@drawable/text_appearance_default_button</item>
+    </style>
+
+    <style name="Controls.Buttons" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textAppearance">@style/Controls.Buttons.TextAppearance</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingStart">@dimen/controls_buttons_default_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/controls_buttons_default_padding_horizontal</item>
+    </style>
+
+    <style name="Controls.Buttons.Text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/controls_buttons_default_height</item>
+    </style>
+
+    <style name="Controls.Buttons.Text.Black">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@color/control_button_text_black</item>
+        <item name="android:layout_height">@dimen/controls_buttons_default_height</item>
+    </style>
+
+    <style name="Controls.Buttons.Default">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/controls_buttons_default_height</item>
+        <item name="android:background">@drawable/bg_controls_buttons_default</item>
+    </style>
+
+    <style name="Controls.Buttons.Default.LightGray">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/controls_buttons_default_height</item>
+        <item name="android:background">@drawable/bg_controls_avatar_default_gray_light</item>
+    </style>
+
+    <style name="Controls.Buttons.Default.LeftBorderRadius">
+        <item name="android:background">@drawable/bg_controls_buttons_default_with_left_border_redius</item>
+    </style>
+
+
+    <style name="Controls.Buttons.Bordered">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/controls_buttons_default_height</item>
+    </style>
+
+    <style name="Controls.Buttons.Bordered.Blue">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@color/control_button_text_black</item>
+        <item name="android:layout_height">@dimen/controls_buttons_default_height</item>
+        <item name="android:background">@drawable/bg_controls_buttons_default_bordered</item>
+    </style>
+    <!--  buttons end  -->
+</resources>

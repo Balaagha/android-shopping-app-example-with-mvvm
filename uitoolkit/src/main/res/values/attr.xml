@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomMaterialTextView">
+        <attr name="background_res" format="reference|color" />
+        <attr name="text" format="string" />
+        <attr name="text_appearance" format="reference" />
+        <attr name="text_color" format="color" />
+        <attr name="line_spacing" format="dimension" />
+        <attr name="is_single_line" format="boolean" />
+        <attr name="vertical_padding" format="dimension" />
+        <attr name="horizontal_padding" format="dimension" />
+        <attr name="drawable_tint" format="color" />
+        <attr name="drawable_padding" format="dimension" />
+        <attr name="drawable_start" format="reference" />
+        <attr name="drawable_end" format="reference" />
+        <attr name="drawable_top" format="reference" />
+        <attr name="drawable_bottom" format="reference" />
+    </declare-styleable>
+</resources>
