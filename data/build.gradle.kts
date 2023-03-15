@@ -1,23 +1,17 @@
 plugins {
-    id(Plugins.application)
+    id(Plugins.library)
     id(Plugins.kotlinAndroid)
-    id(Plugins.kotlinKapt)
     id(Plugins.kotlinAndroidExtensions)
-    id(Plugins.navigationSafeArgsKotlin)
+    id(Plugins.kotlinKapt)
     id(Plugins.daggerHiltAndroidPlugin)
-    id(Plugins.kotlinxSerialization)
 }
 
 android {
     compileSdk = ConfigData.compileSdk
 
     defaultConfig {
-        applicationId = ConfigData.applicationId
         minSdk = ConfigData.minSdk
         targetSdk = ConfigData.targetSdk
-        versionCode = ConfigData.versionCode
-        versionName = ConfigData.versionName
-        testInstrumentationRunner = ConfigData.testInstrumentationRunner
     }
 
     buildTypes {
@@ -34,19 +28,10 @@ android {
         }
         create("dev"){
             dimension = "default"
-            versionNameSuffix = "-Dev"
-            applicationIdSuffix = ".dev"
         }
         create("mock"){
             dimension = "default"
-            versionNameSuffix = "-Mock"
-            applicationIdSuffix = ".mock"
         }
-    }
-
-    buildFeatures {
-        dataBinding = ConfigData.dataBinding
-        viewBinding = ConfigData.viewBinding
     }
 
     compileOptions {
@@ -57,24 +42,18 @@ android {
     kotlinOptions {
         jvmTarget = ConfigData.jvmTarget
     }
+
+    configurations.all {
+        exclude("org.jetbrains.kotlin", "kotlin-parcelize-runtime")
+    }
 }
 
 dependencies {
-
     // App Libraries
     implementation(AppDependencies.commonImplementationLibraries)
-    implementation(AppDependencies.kotlinX.kotlinxSerializationImpl)
-
     kapt(AppDependencies.commonKaptLibraries)
-    annotationProcessor(AppDependencies.commonAnnotationProcessorLibraries)
 
-    implementation(project(Modules.data))
-    implementation(project(Modules.common))
-    implementation(project(Modules.core))
-    implementation(project(Modules.uiToolKit))
-
-    // Test Libraries
+//    // Test Libraries
     testImplementation(AppDependencies.testLibraries)
     androidTestImplementation(AppDependencies.androidTestLibraries)
-
 }
