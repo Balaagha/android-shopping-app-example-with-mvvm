@@ -5,6 +5,8 @@ import android.util.Log
 import com.example.data.base.commonimpl.NetworkStatusListenerHelper
 import com.example.data.base.models.*
 import com.example.data.helper.config.AppConfig
+import com.example.data.utils.customfunction.loadJSONFromAsset
+import com.example.data.utils.customfunction.modelFromJsonString
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import dagger.hilt.EntryPoint
@@ -41,11 +43,20 @@ open class BaseRepository(
     }
 
     inline fun <reified T> launchApiCall(
+        jsonAssetPath: String? = null,
+        fetchType: FetchType? = null,
         apiCall: () -> Response<T>
     ): DataWrapper<Response<T>> {
         return try {
             if (true) {
-                val response = apiCall.invoke()
+                var response =
+                    if ((appConfig.isMock || fetchType == FetchType.MockFetcher) && jsonAssetPath?.isNotEmpty() == true) {
+                        val jsonString = loadJSONFromAsset(mContext, jsonAssetPath)
+                        val data = Response.success(modelFromJsonString<T>(jsonString))
+                        data
+                    } else {
+                        apiCall.invoke()
+                    }
                 DataWrapper.Success(
                     value = response
                 )
