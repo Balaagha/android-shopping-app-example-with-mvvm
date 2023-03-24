@@ -1,6 +1,10 @@
 package com.example.androidmvvmcleanarchitectureexample.ui
 
 import android.os.Bundle
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
+import com.example.androidmvvmcleanarchitectureexample.R
 import com.example.androidmvvmcleanarchitectureexample.databinding.ActivityMainBinding
 import com.example.core.helper.viewInflateBinding
 import com.example.core.view.BaseActivity
@@ -12,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private val binding: ActivityMainBinding by viewInflateBinding(ActivityMainBinding::inflate)
+    private lateinit var navController: NavController
 
     private val loadingDialog: LoadingPopup? by lazy {
         LoadingPopup.getInstance(this).customLayoutLoading()
@@ -38,6 +43,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        navController = Navigation.findNavController(this, R.id.fragment_main_container)
+        NavigationUI.setupWithNavController(binding.bottomNav, navController)
     }
 
 }
