@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_entry"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.entryflow.view.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_onBoardingIntroFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/splashFragment"
+            app:destination="@id/onBoardingIntroFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingIntroFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.entryflow.view.onboarding.OnBoardingIntroFragment"
+        android:label="OnBoardingIntroFragment"
+        tools:layout="@layout/fragment_onboarding_intro">
+        <action
+            android:id="@+id/action_onBoardingIntroFragment_to_onBoardingFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/onBoardingIntroFragment"
+            app:destination="@id/onBoardingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.entryflow.view.onboarding.OnBoardingFragment"
+        android:label="OnBoardingFragment"
+        tools:layout="@layout/fragment_on_boarding">
+        <action
+            android:id="@+id/action_onBoardingFragment_to_loginFlowTypeFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/onBoardingFragment"
+            app:destination="@id/loginFlowTypeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFlowTypeFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.entryflow.view.login.LoginFlowTypeFragment"
+        android:label="LoginFlowTypeFragment"
+        tools:layout="@layout/fragment_login_flow_type"/>
+
+
+</navigation>

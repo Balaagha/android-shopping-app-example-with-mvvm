@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:fillColor="#000000"
+        android:strokeColor="#F5F5F5"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M3.59326 11.2708V15.4686C3.59326 19.6665 5.27614 21.3493 9.47399 21.3493H14.5133C18.7111 21.3493 20.394 19.6665 20.394 15.4686V11.2708" />
+    <path
+        android:fillColor="#000000"
+        android:strokeColor="#F5F5F5"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M11.9983 12C13.7093 12 14.9714 10.6069 14.8031 8.89602L14.1861 2.65067H9.81993L9.19352 8.89602C9.02523 10.6069 10.2874 12 11.9983 12Z" />
+    <path
+        android:fillColor="#000000"
+        android:strokeColor="#F5F5F5"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M17.8978 12C19.7863 12 21.17 10.4667 20.983 8.58749L20.7213 6.01643C20.3847 3.5856 19.4498 2.65067 17.0002 2.65067H14.1487L14.8031 9.20455C14.9621 10.7472 16.3551 12 17.8978 12Z" />
+    <path
+        android:fillColor="#000000"
+        android:strokeColor="#F5F5F5"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M6.05216 12C7.5948 12 8.98785 10.7472 9.13744 9.20455L9.34312 7.13835L9.79189 2.65067H6.94035C4.49082 2.65067 3.55589 3.5856 3.21931 6.01643L2.96688 8.58749C2.77989 10.4667 4.16359 12 6.05216 12Z" />
+    <path
+        android:fillColor="#000000"
+        android:strokeColor="#F5F5F5"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M11.9982 16.6747C10.4369 16.6747 9.66089 17.4507 9.66089 19.012V21.3493H14.3356V19.012C14.3356 17.4507 13.5596 16.6747 11.9982 16.6747Z" />
+</vector>
