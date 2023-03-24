@@ -66,7 +66,7 @@ class CustomMaterialTextView @JvmOverloads constructor(
             textUiModel.textAppearance =
                 getResourceId(
                     R.styleable.CustomMaterialTextView_text_appearance,
-                    R.style.MRegularBlack
+                    R.style.RegularBarlowBlack
                 )
             textUiModel.isSingleLine =
                 getBoolean(R.styleable.CustomMaterialTextView_is_single_line, false)
@@ -230,7 +230,7 @@ class CustomMaterialTextView @JvmOverloads constructor(
         resIdValue?.let {
             textUiModel.textAppearance = resIdValue
         }
-        setTextAppearanceAnyVersion(textUiModel.textAppearance ?: R.style.MRegularBlack)
+        setTextAppearanceAnyVersion(textUiModel.textAppearance ?: R.style.RegularBarlowBlack)
     }
 
     /**
@@ -547,7 +547,7 @@ fun setCustomTextViewUiModelByAttr(
             textColorAttr?.let { typedArray.getColor(it, 0) }
 
         this.textAppearance =
-            textAppearanceAttr?.let { typedArray.getResourceId(it, R.style.MRegularBlack) }
+            textAppearanceAttr?.let { typedArray.getResourceId(it, R.style.RegularBarlowBlack) }
 
         this.isSingleLine =
             isSingleLineAttr?.let { typedArray.getBoolean(it, false) }

@@ -111,12 +111,12 @@ abstract class BaseMvvmFragment<VB : ViewDataBinding, VM : BaseViewModel>(
             .setContent(uiActionEvent.message ?: getMyString(uiActionEvent.messageRes))
             .setContentColor(ContextCompat.getColor(requireContext(), R.color.black))
             .setPositiveButtonBackground(R.drawable.btn_approve)
-            .setPositiveButtonTextAppearance(R.style.MBoldWhite)
+            .setPositiveButtonTextAppearance(R.style.BoldBarlowBlack)
             .setPositiveButton("Okay") {
                 it.dismiss()
             }
             .setNegativeButtonBackground(R.drawable.btn_cancel)
-            .setNegativeButtonTextAppearance(R.style.MBoldBlack)
+            .setNegativeButtonTextAppearance(R.style.BoldBarlowBlack)
             .setNegativeButton("Cancel", null)
             .create()
     }

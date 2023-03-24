@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundWhiteConst"
+        android:paddingHorizontal="20dp"
+        tools:context="ui.entryflow.view.splash.SplashFragment">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_character_intro"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/contentContainer"
+            tools:ignore="ContentDescription" />
+
+        <LinearLayout
+            android:id="@+id/contentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center">
+            <com.example.uitoolkit.custom.CustomMaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:text_appearance="@style/SemiBoldBarlowBlack"
+                app:text="Welcome to"
+                app:text_color="@color/colorPrimaryDark"
+                android:textSize="40sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="dasdasdas"/>
+
+            <com.example.uitoolkit.custom.CustomMaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:text_appearance="@style/ExtraBoldBarlowBlack"
+                app:text="Dot store!"
+                app:text_color="@color/colorPrimaryDark"
+                android:textSize="52sp"/>
+
+            <com.example.uitoolkit.custom.CustomMaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:text="The best e-commerce app for your daily needs"
+                android:textColor="@color/colorSecondary"
+                android:textSize="24sp"
+                android:layout_marginTop="35dp"
+                app:text_appearance="@style/RegularNunitoBlack"
+                app:text_color="@color/colorSecondary" />
+
+            <Button
+                android:id="@+id/btnGoToOnBoardingSliderScreen"
+                style="@style/Controls.Buttons.Default"
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="20dp"
+                android:text="Continue" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+

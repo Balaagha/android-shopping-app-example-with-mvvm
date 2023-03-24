@@ -1,38 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <font-family xmlns:app="http://schemas.android.com/apk/res-auto">
     <font
-        app:font="@font/inter_bold"
+        app:font="@font/barlow_black"
+        app:fontStyle="normal"
+        app:fontWeight="900"/>
+    <font
+        app:font="@font/barlow_extra_bold"
+        app:fontStyle="normal"
+        app:fontWeight="800"/>
+    <font
+        app:font="@font/barlow_bold"
         app:fontStyle="normal"
         app:fontWeight="700"/>
-
     <font
-        app:font="@font/inter_semi_bold"
+        app:font="@font/barlow_semi_bold"
         app:fontStyle="normal"
-        app:fontWeight="700"/>
-
+        app:fontWeight="600"/>
     <font
-        app:font="@font/inter_medium"
+        app:font="@font/barlow_medium"
         app:fontStyle="normal"
         app:fontWeight="500"/>
-
     <font
-        app:font="@font/inter_regular"
+        app:font="@font/barlow_regular"
         app:fontStyle="normal"
         app:fontWeight="400"/>
-
     <font
-        app:font="@font/inter_light"
+        app:font="@font/barlow_light"
         app:fontStyle="normal"
         app:fontWeight="300"/>
-
     <font
-        app:font="@font/inter_extra_light"
+        app:font="@font/barlow_extra_light"
         app:fontStyle="normal"
         app:fontWeight="200"/>
-
     <font
-        app:font="@font/inter_thin"
+        app:font="@font/barlow_thin"
         app:fontStyle="normal"
         app:fontWeight="100"/>
+
+    <font
+        app:font="@font/nunito_black"
+        app:fontStyle="normal"
+        app:fontWeight="900"/>
+    <font
+        app:font="@font/nunito_extra_bold"
+        app:fontStyle="normal"
+        app:fontWeight="800"/>
+    <font
+        app:font="@font/nunito_bold"
+        app:fontStyle="normal"
+        app:fontWeight="700"/>
+    <font
+        app:font="@font/nunito_semi_bold"
+        app:fontStyle="normal"
+        app:fontWeight="600"/>
+    <font
+        app:font="@font/nunito_medium"
+        app:fontStyle="normal"
+        app:fontWeight="500"/>
+    <font
+        app:font="@font/nunito_regular"
+        app:fontStyle="normal"
+        app:fontWeight="400"/>
+    <font
+        app:font="@font/nunito_light"
+        app:fontStyle="normal"
+        app:fontWeight="300"/>
+    <font
+        app:font="@font/nunito_extra_light"
+        app:fontStyle="normal"
+        app:fontWeight="200"/>
 
 </font-family>

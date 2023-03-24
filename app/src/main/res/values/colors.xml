@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EA</color>
-    <color name="colorPrimaryDark">#5502C8</color>
     <color name="colorAccent">#9D46FF</color>
+    <color name="colorPrimary">#6200EA</color>
+
 
     <color name="colorWhite">#FFFFFF</color>
-
     <!--  c Custom Chip Style-->
     <color name="checkedChipBackgroundColor">#206200EA</color>
     <color name="checkedChipTextColor">@color/colorPrimary</color>
-
 
     <color name="statusBarColor">@color/colorPrimaryDark</color>
     <color name="contextualStatusBarColor">@color/colorPrimaryDark</color>
     <color name="contextualActionBarColor">@color/colorPrimaryDark</color>
     <color name="actionBarBackgroundColor">@color/colorPrimary</color>
+
+
 
 </resources>

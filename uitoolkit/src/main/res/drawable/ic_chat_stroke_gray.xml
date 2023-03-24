@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:fillColor="#000000"
+        android:strokeColor="#959595"
+        android:strokeWidth="1.5"
+        android:pathData="M2.75 3C2.75 2.86193 2.86193 2.75 3 2.75H21C21.1381 2.75 21.25 2.86193 21.25 3V16.7143C21.25 16.8524 21.1381 16.9643 21 16.9643H16.2038C15.6991 16.9643 15.2191 17.1821 14.8868 17.5619L12.1881 20.646C12.0885 20.7599 11.9115 20.7599 11.8119 20.646L9.11324 17.5619C8.78094 17.1821 8.30087 16.9643 7.79623 16.9643H3C2.86193 16.9643 2.75 16.8524 2.75 16.7143V3Z" />
+    <path
+        android:fillColor="#1F5CF7"
+        android:strokeColor="#959595"
+        android:strokeWidth="0.75"
+        android:pathData="M 5.75 6.375 L 18.25 6.375 Q 18.625 6.375 18.625 6.75 L 18.625 6.75 Q 18.625 7.125 18.25 7.125 L 5.75 7.125 Q 5.375 7.125 5.375 6.75 L 5.375 6.75 Q 5.375 6.375 5.75 6.375 Z" />
+    <path
+        android:fillColor="#1F5CF7"
+        android:strokeColor="#959595"
+        android:strokeWidth="0.75"
+        android:pathData="M 5.75 9.375 L 18.25 9.375 Q 18.625 9.375 18.625 9.75 L 18.625 9.75 Q 18.625 10.125 18.25 10.125 L 5.75 10.125 Q 5.375 10.125 5.375 9.75 L 5.375 9.75 Q 5.375 9.375 5.75 9.375 Z" />
+    <path
+        android:fillColor="#1F5CF7"
+        android:strokeColor="#959595"
+        android:strokeWidth="0.75"
+        android:pathData="M 5.75 12.375 L 16.25 12.375 Q 16.625 12.375 16.625 12.75 L 16.625 12.75 Q 16.625 13.125 16.25 13.125 L 5.75 13.125 Q 5.375 13.125 5.375 12.75 L 5.375 12.75 Q 5.375 12.375 5.75 12.375 Z" />
+</vector>

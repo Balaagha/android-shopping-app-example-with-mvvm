@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.entryflow.view.onboarding.OnBoardingFragment">
+
+
+        <LinearLayout
+            android:id="@+id/headerSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingBottom="20dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/invoiceWrapper">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/navigationBackBtn"
+                    android:layout_width="40dp"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:theme="@style/Theme.MaterialComponents.DayNight"
+                    app:iconTint="@color/colorPrimaryDark"
+                    app:icon="@drawable/ic_arrow_left_big_primary_dark"
+                    app:iconGravity="textEnd"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingStart="6.75dp"
+                    android:paddingEnd="13.75dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <com.example.uitoolkit.custom.CustomMaterialTextView
+            android:id="@+id/tvLetsYouIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:text_appearance="@style/BoldBarlowBlack"
+            app:text="Lets you in"
+            app:text_color="@color/colorPrimaryDark"
+            android:textSize="40sp"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headerSection"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLetsYouIn"
+            android:layout_marginTop="28dp"
+            android:src="@drawable/ic_login_flow_type_icon"/>
+        <LinearLayout
+            android:id="@+id/contentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="22dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btnContinue"
+                style="@style/Controls.Buttons.Default"
+                android:text="Sign in with password" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp">
+                <com.example.uitoolkit.custom.CustomMaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:text_appearance="@style/MediumNunitoBlack"
+                    app:text="Don’t have account?"
+                    app:text_color="@color/colorGray40"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/headerSection"/>
+                <com.example.uitoolkit.custom.CustomMaterialTextView
+                    android:id="@+id/tvSignUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:text_appearance="@style/SemiBoldNunitoBlack"
+                    app:text="Sign up"
+                    app:text_color="@color/colorAccentCarroot"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/headerSection"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

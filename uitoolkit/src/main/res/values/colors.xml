@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimaryDark">#131C26</color>
+    <color name="colorSecondary">#16212D</color>
+    <color name="colorDarkInput">#233447</color>
+    <color name="colorAccentCarroot">#FF725E</color>
+    <color name="colorTextWhite">#F2F2F2</color>
+    <color name="colorGray20">#CFCFCF</color>
+    <color name="colorGray40">#B7B7B7</color>
+    <color name="colorOrderDone">#0CA71B</color>
+    <color name="colorBackgroundWhiteConst">#FFFFFF</color>
+
+
     <color name="expense_main">#FFC398</color>
     <color name="expense_secondary">#FFD5B0</color>
     <color name="purple_200">#FFBB86FC</color>
