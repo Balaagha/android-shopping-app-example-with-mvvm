@@ -3,21 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@id/dashboardFragment">
+    app:startDestination="@id/nav_graph_dashboard">
 
-    <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="com.example.androidmvvmcleanarchitectureexample.ui.fragments.dashboard.DashboardFragment"
-        android:label="dashboardFragment">
+    <include
+        app:graph="@navigation/nav_graph_dashboard" />
 
-<!--        <action-->
-<!--            android:id="@+id/action_splashFragment_to_entryFragment"-->
-<!--            app:enterAnim="@anim/slide_in_right"-->
-<!--            app:exitAnim="@anim/slide_out_left"-->
-<!--            app:popEnterAnim="@anim/slide_in_left"-->
-<!--            app:popExitAnim="@anim/slide_out_right"-->
-<!--            app:destination="@id/entryFragment" />-->
+    <include
+        app:graph="@navigation/nav_graph_orders" />
 
-    </fragment>
+    <include
+        app:graph="@navigation/nav_graph_cart" />
+
+    <include
+        app:graph="@navigation/nav_graph_profile" />
 
 </navigation>

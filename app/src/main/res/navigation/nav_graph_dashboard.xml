@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_dashboard"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.fragments.dashboard.DashboardFragment"
+        android:label="dashboardFragment">
+
+        <!--        <action-->
+        <!--            android:id="@+id/action_splashFragment_to_entryFragment"-->
+        <!--            app:enterAnim="@anim/slide_in_right"-->
+        <!--            app:exitAnim="@anim/slide_out_left"-->
+        <!--            app:popEnterAnim="@anim/slide_in_left"-->
+        <!--            app:popExitAnim="@anim/slide_out_right"-->
+        <!--            app:destination="@id/entryFragment" />-->
+
+    </fragment>
+
+</navigation>

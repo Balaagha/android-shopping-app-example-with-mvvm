@@ -231,10 +231,7 @@ object AppDependencies {
         val rx_java_android = "io.reactivex.rxjava3:rxandroid:${rxAndroidVersion}"
         val rx_binding3Core = "com.jakewharton.rxbinding4:rxbinding-core:${rxBindingVersion}"
 
-
-
     }
-
 }
 
 
