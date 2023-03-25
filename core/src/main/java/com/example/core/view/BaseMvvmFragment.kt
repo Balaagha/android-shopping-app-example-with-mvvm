@@ -69,8 +69,35 @@ abstract class BaseMvvmFragment<VB : ViewDataBinding, VM : BaseViewModel>(
         // Listen to events
         observe(viewModel.event, ::handleGenericsUiActionEvents)
         observe(viewModel.loadingEvent, ::handleLoadingIndicatorEvent)
+
+        if(behaveAsDialog){
+            observe(viewModel.eventUiActionForDialogFragment) {
+                Log.d("myTagEvent", " call eventUiAction => $it | it?.first => ${it?.first}| this.javaClass => ${this.javaClass} | ${it?.first == this.javaClass}")
+                if (it?.first == this.javaClass) {
+                    handleUiActionEvent(it.second)
+                }
+            }
+        } else {
+            observe(viewModel.eventUiAction) {
+                Log.d("myTagEvent", " call eventUiAction => $it | it?.first => ${it?.first}| this.javaClass => ${this.javaClass} | ${it?.first == this.javaClass}")
+                if (it?.first == this.javaClass) {
+                    handleUiActionEvent(it.second)
+                }
+            }
+        }
     }
 
+    protected open fun handleUiActionEvent(action: String?) {
+        Log.d("myTagEvent", " call handleUiActionEvent => $action in super class")
+        when (action) {
+            "finish" -> {
+                requireActivity().finish()
+            }
+            else -> {
+                // NoImpl
+            }
+        }
+    }
 
     protected open fun performOnViewCreatedOnlyOnce() {
         // NoImpl

@@ -25,7 +25,17 @@ class LoginFlowTypeFragment : BaseMvvmFragment<FragmentLoginFlowTypeBinding, Ent
     }
 
     private fun initClickListener() {
-
+        with(binding) {
+            navigationBackBtn.setOnClickListener {
+                findNavController().popBackStack()
+            }
+            btnContinue.setOnClickListener {
+                findNavController().navigate(R.id.action_global_loginFragment)
+            }
+            tvSignUp.setOnClickListener {
+                findNavController().navigate(R.id.action_global_createAccountFirstFragment)
+            }
+        }
     }
 
 }

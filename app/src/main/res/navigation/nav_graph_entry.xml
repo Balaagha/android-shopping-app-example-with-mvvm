@@ -43,7 +43,40 @@
         android:id="@+id/loginFlowTypeFragment"
         android:name="com.example.androidmvvmcleanarchitectureexample.ui.entryflow.view.login.LoginFlowTypeFragment"
         android:label="LoginFlowTypeFragment"
-        tools:layout="@layout/fragment_login_flow_type"/>
+        tools:layout="@layout/fragment_login_flow_type">
+        <action
+            android:id="@+id/action_loginFlowTypeFragment_to_createAccountFirstFragment"
+            app:destination="@id/createAccountFirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFirstFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.entryflow.view.login.CreateAccountFirstFragment"
+        android:label="CreateAccountFirstFragment"
+        tools:layout="@layout/fragment_create_account_first">
+        <action
+            android:id="@+id/action_createAccountFirstFragment_to_createAccountSecondFragment"
+            app:destination="@id/createAccountSecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountSecondFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.entryflow.view.login.CreateAccountSecondFragment"
+        android:label="CreateAccountSecondFragment"
+        tools:layout="@layout/fragment_create_account_second"/>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.entryflow.view.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login"/>
 
+
+    <action android:id="@+id/action_global_loginFragment"
+        app:popUpToInclusive="false"
+        app:popUpTo="@id/loginFlowTypeFragment"
+        app:destination="@id/loginFragment"/>
+
+    <action android:id="@+id/action_global_createAccountFirstFragment"
+        app:popUpToInclusive="false"
+        app:popUpTo="@id/loginFlowTypeFragment"
+        app:destination="@id/createAccountFirstFragment"/>
 
 </navigation>
