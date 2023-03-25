@@ -1,4 +1,4 @@
-package com.example.uitoolkit.helper
+package com.example.androidmvvmcleanarchitectureexample.helper.util
 
 import android.text.*
 import android.util.Log
@@ -10,24 +10,22 @@ import com.google.android.material.textfield.TextInputLayout
 
 class InputTextWatcherDelegate(
     private val inputLayout: TextInputLayout,
-    private val mask: String? = null,
-    private val maskDecoderBlock: ((String) -> String)? = null,
     private val minTextLength: Int? = null,
     private val maxTextLength: Int? = null,
-    deniedCharacters: ArrayList<String>? = null,
-    private val isEnableTextCapCharacters: Boolean = false,
     private var errorText: String? = null,
     private val checkValidationWithCustomBehaviorBlock: ((String) -> Boolean)? = null,
     private val checkErrorVisibilityWithCustomBehaviorBlock: ((isValidValue: Boolean, errorTextValue: String?) -> Unit)? = null,
-    private val beforeChangedBlock: (() -> Unit)? = null,
-    private val onTextChangedBlock: (() -> Unit)? = null,
-    private val afterTextChangedBlock: ((String) -> Unit)? = null,
-    ) : TextWatcher {
+    private val afterTextChangedBlock: ((String, Boolean) -> Unit)? = null,
+    private val mask: String? = null,
+    private val maskDecoderBlock: ((String) -> String)? = null,
+    deniedCharacters: ArrayList<String>? = null,
+    isTopHintEnabled: Boolean = false
+) : TextWatcher {
 
     private var isRunning = false
     private var isDeleting = false
 
-    var oldTextValue: String = ""
+    var previosTextValue: String = ""
 
     private var isValid: Boolean = false
 
@@ -38,24 +36,27 @@ class InputTextWatcherDelegate(
         deniedCharacters?.let { deniedCharacterList ->
             setDeniedCharacters(deniedCharacterList)
         }
+        inputLayout.isHintEnabled = isTopHintEnabled
     }
 
-    fun getText(): String{
-        return maskDecoderBlock?.invoke(oldTextValue) ?: oldTextValue
+    fun getText(): String {
+        return maskDecoderBlock?.invoke(previosTextValue) ?: previosTextValue
     }
 
-    fun isValid(isValidAction: (()->Unit)? = null): Boolean{
-        if(!isValid && (errorText.isNotNull() || checkValidationWithCustomBehaviorBlock.isNotNull())){
-            checkErrorVisibilityWithCustomBehaviorBlock?.invoke(isValid, errorText) ?: run {
+    fun isValid(isValidAction: (() -> Unit)? = null): Boolean {
+        checkErrorVisibilityWithCustomBehaviorBlock?.invoke(isValid, errorText) ?: run {
+            if (errorText.isNotNull() && isValid.not()) {
                 inputLayout.error = errorText
+            } else {
+                inputLayout.error = null
             }
         }
         isValidAction?.let {
-            if(isValid){
+            if (isValid) {
                 isValidAction.invoke()
             }
         }
-        return  isValid
+        return isValid
     }
 
     override fun beforeTextChanged(charSequence: CharSequence, start: Int, count: Int, after: Int) {
@@ -74,7 +75,7 @@ class InputTextWatcherDelegate(
         if (maxTextLength.isNotNull() && (maskDecoderBlock?.invoke(editable.toString())?.length
                 ?: editable.toString().length) > (maxTextLength ?: 0)
         ) {
-            setTextViewValueWithoutNotifyWatcher(oldTextValue)
+            setTextViewValueWithoutNotifyWatcher(previosTextValue)
         } else {
             mask?.let { mMask ->
                 val editableLength = editable.length
@@ -94,19 +95,22 @@ class InputTextWatcherDelegate(
 
             isValid =
                 checkValidationWithCustomBehaviorBlock?.invoke(editable.toString()) ?: kotlin.run {
-                    return@run checkValidation(maskDecoderBlock?.invoke(editable.toString()) ?: editable.toString())
+                    return@run checkValidation(
+                        maskDecoderBlock?.invoke(editable.toString()) ?: editable.toString()
+                    )
                 }
 
-            checkErrorVisibilityWithCustomBehaviorBlock?.invoke(
-                isValid, errorText
-            ) ?: run {
-                if(isValid){
+            if (isValid) {
+                checkErrorVisibilityWithCustomBehaviorBlock?.invoke(
+                    isValid, errorText
+                ) ?: run {
                     checkErrorVisibility(isValidValue = isValid)
                 }
             }
 
-            oldTextValue = editable.toString()
-            afterTextChangedBlock?.invoke(editable.toString())
+
+            previosTextValue = editable.toString()
+            afterTextChangedBlock?.invoke(editable.toString(), isValid)
         }
         isRunning = false
     }
@@ -122,7 +126,7 @@ class InputTextWatcherDelegate(
                 cursorPosition > value.length -> value.length
                 else -> cursorPosition
             }
-            oldTextValue = try {
+            previosTextValue = try {
                 editText?.setText(value)
                 editText?.setSelection(cursorPositionValue)
                 value
@@ -166,7 +170,7 @@ class InputTextWatcherDelegate(
     }
 
     private fun checkValidation(value: String): Boolean {
-        return value.length > (minTextLength ?: 0)
+        return value.length >= (minTextLength ?: 0)
     }
 
     private fun checkErrorVisibility(

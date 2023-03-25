@@ -2,6 +2,8 @@ package com.example.data.helper.manager
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Base64
+import android.util.Log
 import com.example.data.helper.models.typedefs.SharedTypes
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -14,7 +16,7 @@ class SharedPrefsManager constructor(context: Context?, @SharedTypes.SharedTypes
         prefs = context?.getSharedPreferences(sharedType, Context.MODE_PRIVATE)
     }
 
-    fun <T> set(key: String, value: T) {
+    fun <T> set(key: String, value: T, isEncrypt: Boolean = false) {
         val editor = prefs?.edit()
 
         when (value) {
@@ -25,7 +27,15 @@ class SharedPrefsManager constructor(context: Context?, @SharedTypes.SharedTypes
                 editor?.putLong(key, value)
             }
             is String -> {
-                editor?.putString(key, value)
+                val data = if (isEncrypt) {
+                    encrypt(value)
+                } else {
+                    value
+                }
+                Log.d("SharedPrefsManager", "set value: $value")
+                Log.d("SharedPrefsManager", "set encripted data: $data")
+                Log.d("SharedPrefsManager", "set decripted encripted data: ${decrypt(data)}")
+                editor?.putString(key, data)
             }
             is Boolean -> {
                 editor?.putBoolean(key, value)
@@ -38,7 +48,7 @@ class SharedPrefsManager constructor(context: Context?, @SharedTypes.SharedTypes
     }
 
 
-    inline fun <reified T> get(key: String, default: T?): T? {
+    inline fun <reified T> get(key: String, default: T?,isDecrypt: Boolean= false): T? {
         return when (T::class) {
             Int::class -> {
                 prefs?.getInt(key, default as Int) as T?
@@ -47,7 +57,11 @@ class SharedPrefsManager constructor(context: Context?, @SharedTypes.SharedTypes
                 prefs?.getLong(key, default as Long) as T?
             }
             String::class -> {
-                prefs?.getString(key, default as String?) as T?
+                var returnData = prefs?.getString(key, default as String?) as T?
+                if(isDecrypt && (returnData as String?)?.isNotEmpty() == true) {
+                    returnData = decrypt(returnData as String?) as T?
+                }
+                returnData
             }
             Boolean::class -> {
                 prefs?.getBoolean(key, default as Boolean) as T?
@@ -75,6 +89,15 @@ class SharedPrefsManager constructor(context: Context?, @SharedTypes.SharedTypes
         val editor = prefs?.edit()
         editor?.remove(prName)
         editor?.apply()
+    }
+
+    private fun encrypt(value: String): String {
+        // Implement encryption algorithm here
+        return Base64.encodeToString(value.toByteArray(), Base64.DEFAULT)
+    }
+
+    fun decrypt(value: String?): String? {
+         return String(Base64.decode(value, Base64.DEFAULT))
     }
 
     /**

@@ -2,6 +2,7 @@ package com.example.data.di
 
 import com.example.data.base.interceptors.TokenManager
 import com.example.data.features.common.services.CommonFlowServices
+import com.example.data.features.entry.services.EntryFlowServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +20,7 @@ import javax.inject.Singleton
 open class DataModule {
 
     companion object {
-        const val BASE_URL = "base_url"
+        const val BASE_URL = "https://mobile.test-danit.com/"
     }
 
     // retrofit region start
@@ -78,6 +79,14 @@ open class DataModule {
         retrofit: Retrofit,
     ): CommonFlowServices {
         return retrofit.create(CommonFlowServices::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideEntryFlowServices(
+        retrofit: Retrofit,
+    ): EntryFlowServices {
+        return retrofit.create(EntryFlowServices::class.java)
     }
     // services region end
 

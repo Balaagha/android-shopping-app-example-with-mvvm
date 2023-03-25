@@ -1,5 +1,6 @@
 package com.example.data.base.interceptors
 
+import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
@@ -16,6 +17,7 @@ class TokenManagerImpl @Inject constructor() : TokenManager {
     override val authorizationToken: String? get() = _authorizationToken
 
     override fun setAuthorizationToken(token: String?) {
+        Log.d("myTag","token: $token in setAuthorizationToken")
         _authorizationToken = token
     }
 

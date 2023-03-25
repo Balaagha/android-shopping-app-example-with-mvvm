@@ -2,7 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.androidmvvmcleanarchitectureexample.ui.entryflow.viewmodel.EntryViewModel" />
 
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,26 +58,101 @@
         </LinearLayout>
 
         <com.example.uitoolkit.custom.CustomMaterialTextView
-            android:id="@+id/tvLetsYouIn"
+            android:id="@+id/tvTopView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:text_appearance="@style/BoldBarlowBlack"
-            app:text="Lets you in"
+            app:text="Create your account"
             app:text_color="@color/colorPrimaryDark"
-            android:textSize="40sp"
+            android:textSize="32sp"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/headerSection"/>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLetsYouIn"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="28dp"
-            android:src="@drawable/ic_login_flow_type_icon"/>
+            android:orientation="vertical"
+            android:src="@drawable/ic_login_flow_type_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTopView">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/eTvEmail"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:textColorHint="@color/colorGray40"
+                app:boxStrokeColor="@color/text_input_color"
+                app:hintAnimationEnabled="false"
+                app:startIconDrawable="@drawable/ic_letter_bold_blue"
+                app:startIconTint="@color/black_neutral">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewmodel.createUserUiData.email}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/eTvPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Password"
+                android:textColorHint="@color/colorGray40"
+                app:boxStrokeColor="@color/text_input_color"
+                app:hintAnimationEnabled="false"
+                app:startIconDrawable="@drawable/ic_password_bold_blue"
+                app:startIconTint="@color/black_neutral"
+                app:endIconMode="password_toggle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:inputType="textPassword"
+                    android:text="@={viewmodel.createUserUiData.password}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    app:buttonTint="@color/checkbox_color"
+                    android:checked="@={viewmodel.isRememberMeChecked}"
+                    />
+
+                <com.example.uitoolkit.custom.CustomMaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/headerSection"
+                    app:text="Remember me"
+                    app:text_appearance="@style/RegularNunitoBlack"
+                    app:text_color="@color/colorPrimaryDark" />
+            </LinearLayout>
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/contentContainer"
             android:layout_width="match_parent"
@@ -88,7 +168,7 @@
             <Button
                 android:id="@+id/btnContinue"
                 style="@style/Controls.Buttons.Default"
-                android:text="Sign in with password" />
+                android:text="Sign Up" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -98,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:text_appearance="@style/MediumNunitoBlack"
-                    app:text="Don’t have account?"
+                    app:text="Already have an account?"
                     app:text_color="@color/colorGray40"
                     android:textSize="18sp"
                     android:layout_marginEnd="10dp"
@@ -106,11 +186,11 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/headerSection"/>
                 <com.example.uitoolkit.custom.CustomMaterialTextView
-                    android:id="@+id/tvSignUp"
+                    android:id="@+id/tvSignIn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:text_appearance="@style/SemiBoldNunitoBlack"
-                    app:text="Sign up"
+                    app:text="Sign in"
                     app:text_color="@color/colorAccentCarroot"
                     android:textSize="18sp"
                     android:textColor="@color/colorPrimaryDark"

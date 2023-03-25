@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="Theme.AndroidMvvmCleanArchitectureExample" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimary">@color/colorSecondary</item>
         <item name="colorPrimaryDark">@color/colorWhite</item>
         <item name="colorAccent">@color/colorWhite</item>
         <item name="actionModeBackground">@color/colorWhite</item>
@@ -13,6 +13,11 @@
         <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
         <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
         <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
+    </style>
+    <style name="BrandedSwitch.control" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">#1A7DD9</item>
+        <item name="colorSwitchThumbNormal">#FFFFFF</item>
     </style>
 
     <!-- BottomSheetDialog Theme -->

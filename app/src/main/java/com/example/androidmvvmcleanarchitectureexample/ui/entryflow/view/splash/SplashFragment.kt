@@ -13,13 +13,18 @@ import com.example.androidmvvmcleanarchitectureexample.databinding.FragmentSplas
 import com.example.androidmvvmcleanarchitectureexample.ui.MainActivity
 import com.example.androidmvvmcleanarchitectureexample.ui.entryflow.viewmodel.EntryViewModel
 import com.example.core.view.BaseMvvmFragment
+import com.example.data.helper.manager.UserDataManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class SplashFragment : BaseMvvmFragment<FragmentSplashBinding, EntryViewModel>(
     R.layout.fragment_splash, EntryViewModel::class
 ) {
+
+    @Inject
+    lateinit var userDataManager: UserDataManager
 
     override val viewModelFactoryOwner: () -> ViewModelStoreOwner = {
         findNavController().getViewModelStoreOwner(R.id.nav_graph_entry)
@@ -32,13 +37,13 @@ class SplashFragment : BaseMvvmFragment<FragmentSplashBinding, EntryViewModel>(
     private val runner by lazy {
         Runnable {
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-                if (true) {
-                    findNavController().navigate(R.id.action_splashFragment_to_onBoardingIntroFragment)
-                } else {
+                if (userDataManager.setApiToken()) {
                     activity?.apply {
                         finish()
                         startActivity(Intent(requireContext(), MainActivity::class.java))
                     }
+                } else {
+                    findNavController().navigate(R.id.action_splashFragment_to_onBoardingIntroFragment)
                 }
             }
         }

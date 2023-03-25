@@ -30,11 +30,21 @@ open class BaseViewModel(
      */
     val navigationRoute = SingleLiveEvent<Pair<Class<*>, Int>>()
 
-    open var isShowBaseLoadingIndicator: Boolean = false
+    open var isShowBaseLoadingIndicator: Boolean = true
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
 //        Timber.e(throwable)
     }
+
+    /**
+     * this field contains two type of data
+     * first - class which if identify your current class is valid for navigation
+     * this field working only Fragment class. For dialog or bottom sheet using [eventUiActionForDialogFragment]
+     * second - action id which navigate your true destination
+     * implementation in viewModel => eventUiAction.postValue( Fragment::class.java to actionType )
+     */
+    val eventUiAction = SingleLiveEvent<Pair<Class<*>, String>>()
+    val eventUiActionForDialogFragment = SingleLiveEvent<Pair<Class<*>, String>>()
 
     /**
      * For triggering base events on UI
