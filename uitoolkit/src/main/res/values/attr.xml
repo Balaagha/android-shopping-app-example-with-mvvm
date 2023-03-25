@@ -16,4 +16,14 @@
         <attr name="drawable_top" format="reference" />
         <attr name="drawable_bottom" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="ProductView">
+        <attr name="android:layout_height"/>
+        <attr name="android:layout_width"/>
+        <attr name="percent" format="string"/>
+        <attr name="android:src"/>
+        <attr name="favourite_icon_selected" format="boolean"/>
+        <attr name="favourite_icon_visibility" format="boolean"/>
+        <attr name="percent_text_visibility" format="boolean"/>
+    </declare-styleable>
 </resources>

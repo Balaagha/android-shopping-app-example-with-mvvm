@@ -3,28 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/dashboardFragment"
+        android:id="@+id/nav_graph_dashboard"
         android:enabled="true"
         android:icon="@drawable/home_selector"
         android:title="Home"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/ordersFragment"
+        android:id="@+id/nav_graph_orders"
         android:enabled="true"
         android:icon="@drawable/orders_selector"
         android:title="Orders"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/cartFragment"
+        android:id="@+id/nav_graph_cart"
         android:enabled="true"
         android:icon="@drawable/cart_selector"
         android:title="Cart"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/nav_graph_profile"
         android:enabled="true"
         android:icon="@drawable/profile_selector"
         android:title="Profile"
