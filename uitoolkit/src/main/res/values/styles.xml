@@ -76,5 +76,12 @@
         <item name="android:layout_height">@dimen/controls_buttons_default_height</item>
         <item name="android:background">@drawable/bg_controls_buttons_default_bordered</item>
     </style>
+
+    <style name="Controls.Buttons.Bordered.Black">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@color/control_button_text_black</item>
+        <item name="android:layout_height">@dimen/controls_buttons_default_height</item>
+        <item name="android:background">@drawable/bg_controls_buttons_black_bordered</item>
+    </style>
     <!--  buttons end  -->
 </resources>

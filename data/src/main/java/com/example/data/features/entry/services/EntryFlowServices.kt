@@ -6,7 +6,9 @@ import com.example.data.features.entry.model.CustomerRequestModel
 import com.example.data.features.entry.model.CustomerResponseModel
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 interface EntryFlowServices {
 
@@ -19,6 +21,14 @@ interface EntryFlowServices {
     suspend fun loginAccount(
         @Body requestData: CustomerLoginRequestModel
     ): Response<CustomerLoginResponseModel>
+
+    @GET("api/customers/customer")
+    suspend fun getCustomerData(): Response<CustomerResponseModel>
+
+    @PUT("api/customers")
+    suspend fun updateCustomerData(
+        @Body requestData: CustomerRequestModel
+    ): Response<CustomerResponseModel>
 
 
 }

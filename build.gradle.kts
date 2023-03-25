@@ -12,7 +12,7 @@ buildscript {
         classpath(Dependencies.navigationSafeArgsPlugin)
         classpath(Dependencies.hiltAndroidGradlePlugin)
         classpath(Dependencies.kotlinSerializationClassPath)
-
+        classpath("com.google.gms:google-services:4.3.10")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

@@ -6,6 +6,7 @@ plugins {
     id(Plugins.navigationSafeArgsKotlin)
     id(Plugins.daggerHiltAndroidPlugin)
     id(Plugins.kotlinxSerialization)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -68,7 +69,13 @@ dependencies {
 
     kapt(AppDependencies.commonKaptLibraries)
     annotationProcessor(AppDependencies.commonAnnotationProcessorLibraries)
+    // Import the BoM for the Firebase platform
 
+    // Declare the dependency for the Cloud Firestore library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+
+    implementation(platform("com.google.firebase:firebase-bom:29.0.3"))
+    implementation ("com.google.firebase:firebase-storage-ktx")
     implementation(project(Modules.data))
     implementation(project(Modules.common))
     implementation(project(Modules.core))
@@ -79,3 +86,5 @@ dependencies {
     androidTestImplementation(AppDependencies.androidTestLibraries)
 
 }
+
+

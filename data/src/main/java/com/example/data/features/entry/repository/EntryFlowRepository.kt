@@ -21,6 +21,10 @@ interface EntryFlowRepository {
     suspend fun createAccount(requestData: CustomerRequestModel): DataWrapper<Response<CustomerResponseModel>>
     suspend fun loginAccount(requestData: CustomerLoginRequestModel): DataWrapper<Response<CustomerLoginResponseModel>>
 
+    suspend fun getCustomerData(): DataWrapper<Response<CustomerResponseModel>>
+    suspend fun updateCustomerData(requestData: CustomerRequestModel): DataWrapper<Response<CustomerResponseModel>>
+
+
 }
 
 @Singleton
@@ -40,6 +44,20 @@ class EntryFlowRepositoryImpl @Inject constructor(
     override suspend fun loginAccount(requestData: CustomerLoginRequestModel): DataWrapper<Response<CustomerLoginResponseModel>> {
         return launchApiCall {
             services.loginAccount(
+                requestData = requestData
+            )
+        }
+    }
+
+    override suspend fun getCustomerData(): DataWrapper<Response<CustomerResponseModel>> {
+        return launchApiCall {
+            services.getCustomerData()
+        }
+    }
+
+    override suspend fun updateCustomerData(requestData: CustomerRequestModel): DataWrapper<Response<CustomerResponseModel>> {
+        return launchApiCall {
+            services.updateCustomerData(
                 requestData = requestData
             )
         }

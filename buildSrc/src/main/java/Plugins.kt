@@ -8,4 +8,5 @@ object Plugins {
     const val daggerHiltAndroidPlugin = "dagger.hilt.android.plugin"
     const val butterKnife = "com.jakewharton.butterknife"
     const val kotlinxSerialization = "kotlinx-serialization"
+    const val googleServices = "com.google.gms.google-services"
 }

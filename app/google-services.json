@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "673054867747",
+    "project_id": "my-shopping-app-3d74e",
+    "storage_bucket": "my-shopping-app-3d74e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673054867747:android:3f4b4911026b298f020c96",
+        "android_client_info": {
+          "package_name": "com.eample.androidmvvmcleanarchitectureexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673054867747-cf0gmc73viregc433r7ktvd0njdun7fr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYVwBOZ7PVdXVioNk9uEkyynXJ70Snf2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673054867747-cf0gmc73viregc433r7ktvd0njdun7fr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673054867747:android:a66f18d320ae0e20020c96",
+        "android_client_info": {
+          "package_name": "com.example.androidmvvmcleanarchitectureexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673054867747-cf0gmc73viregc433r7ktvd0njdun7fr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYVwBOZ7PVdXVioNk9uEkyynXJ70Snf2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673054867747-cf0gmc73viregc433r7ktvd0njdun7fr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673054867747:android:d88ef53751c29494020c96",
+        "android_client_info": {
+          "package_name": "com.example.androidmvvmcleanarchitectureexample.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673054867747-cf0gmc73viregc433r7ktvd0njdun7fr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYVwBOZ7PVdXVioNk9uEkyynXJ70Snf2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673054867747-cf0gmc73viregc433r7ktvd0njdun7fr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
