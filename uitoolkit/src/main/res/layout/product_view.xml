@@ -9,7 +9,7 @@
             android:id="@+id/mainImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@color/color_carrot"
+            android:src="@color/colorAccentCarroot"
             android:scaleType="fitXY"/>
 
         <ImageView
