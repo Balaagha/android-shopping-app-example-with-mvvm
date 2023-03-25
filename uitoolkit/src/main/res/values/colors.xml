@@ -95,15 +95,4 @@
     <color name="de_active_grey">#C4C4CC</color>
 
 
-    <!-- new colors -->
-    <color name="color_primary_dark">#131C26</color>
-    <color name="color_secondary">#16212D</color>
-    <color name="color_dark_input">#233447</color>
-    <color name="color_carrot">#FF725E</color>
-    <color name="color_white">#F2F2F2</color>
-    <color name="color_grey_20">#CFCFCF</color>
-    <color name="color_grey_40">#B7B7B7</color>
-    <color name="color_done">#0CA71B</color>
-    <color name="color_cancel">#EB2D2D</color>
-
 </resources>

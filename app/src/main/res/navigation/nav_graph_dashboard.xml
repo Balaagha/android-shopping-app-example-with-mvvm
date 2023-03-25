@@ -19,4 +19,34 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.fragments.products.ProductsFragment"
+        android:label="productsFragment">
+
+        <!--        <action-->
+        <!--            android:id="@+id/action_splashFragment_to_entryFragment"-->
+        <!--            app:enterAnim="@anim/slide_in_right"-->
+        <!--            app:exitAnim="@anim/slide_out_left"-->
+        <!--            app:popEnterAnim="@anim/slide_in_left"-->
+        <!--            app:popExitAnim="@anim/slide_out_right"-->
+        <!--            app:destination="@id/entryFragment" />-->
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.fragments.product.ProductFragment"
+        android:label="productFragment">
+
+        <!--        <action-->
+        <!--            android:id="@+id/action_splashFragment_to_entryFragment"-->
+        <!--            app:enterAnim="@anim/slide_in_right"-->
+        <!--            app:exitAnim="@anim/slide_out_left"-->
+        <!--            app:popEnterAnim="@anim/slide_in_left"-->
+        <!--            app:popExitAnim="@anim/slide_out_right"-->
+        <!--            app:destination="@id/entryFragment" />-->
+
+    </fragment>
+
 </navigation>

@@ -232,6 +232,12 @@ object AppDependencies {
         val rx_binding3Core = "com.jakewharton.rxbinding4:rxbinding-core:${rxBindingVersion}"
 
     }
+
+    object Indicator {
+        val indicator_version = "2.0.0"
+        val indicator = "com.github.martinstamenkovski:ARIndicatorView:$indicator_version"
+
+    }
 }
 
 

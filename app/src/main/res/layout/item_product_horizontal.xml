@@ -17,7 +17,7 @@
             <com.example.uitoolkit.custom.ProductView
                 android:layout_width="@dimen/_163sdp"
                 android:layout_height="@dimen/_163sdp"
-                android:src="@color/color_carrot"/>
+                android:src="@color/colorAccentCarroot"/>
 
         </androidx.cardview.widget.CardView>
         
@@ -27,7 +27,6 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             app:text_appearance="@style/SemiBoldBarlowBlack"
             app:text="Iphone 13 pro max"
             app:text_color="@color/colorPrimaryDark"
@@ -46,7 +45,6 @@
             android:id="@+id/productPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             app:text_appearance="@font/nunito_extra_bold"
             app:text="Iphone 13 pro max"
             app:text_color="@color/colorPrimaryDark"
