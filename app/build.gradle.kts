@@ -64,6 +64,7 @@ dependencies {
     // App Libraries
     implementation(AppDependencies.commonImplementationLibraries)
     implementation(AppDependencies.kotlinX.kotlinxSerializationImpl)
+    implementation(AppDependencies.Indicator.indicator)
 
     kapt(AppDependencies.commonKaptLibraries)
     annotationProcessor(AppDependencies.commonAnnotationProcessorLibraries)
