@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -18,7 +19,7 @@ class ProductView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : FrameLayout(context, attrs, defStyleAttr) {
 
 
     private var productViewModel = ProductViewModel()
@@ -26,8 +27,6 @@ class ProductView @JvmOverloads constructor(
     private var image: ImageView
     private var percentText: TextView
     private var mainLayout: ConstraintLayout
-    private var height = 70F
-    private var width = 70F
     private var lp: LayoutParams
     private var src: Int? = null
 
@@ -60,16 +59,7 @@ class ProductView @JvmOverloads constructor(
             productViewModel.favouriteIconSelected =
                 getBoolean(R.styleable.ProductView_favourite_icon_selected, false)
 
-            height = getDimension(R.styleable.ProductView_android_layout_height, 70F)
-
-            width = getDimension(R.styleable.ProductView_android_layout_width, 70F)
-
             src = getResourceId(R.styleable.ProductView_android_src, R.color.colorSecondary)
-
-            setHeight(height)
-            setWidth(width)
-
-
         }
         arr.recycle()
         refreshViewState()

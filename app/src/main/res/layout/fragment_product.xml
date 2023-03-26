@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical">
 
 
@@ -38,6 +43,232 @@
             app:layout_constraintTop_toBottomOf="@id/imageRv"
             app:number_of_indicators="5"
             app:selected_color="@color/blue_primary_dark" />
+
+
+
+        <com.example.uitoolkit.custom.CustomMaterialTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:text_appearance="@style/SemiBoldBarlowBlack"
+            app:text="Iphone 13 pro max"
+            app:text_color="@color/colorPrimaryDark"
+            android:textSize="18sp"/>
+
+        <com.example.uitoolkit.custom.CustomMaterialTextView
+            android:id="@+id/subTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:text_appearance="@style/RegularNunitoBlack"
+            app:text="Iphone 13 pro max"
+            app:text_color="@color/colorPrimaryDark"
+            android:textSize="16sp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <com.example.uitoolkit.custom.CustomMaterialTextView
+                android:id="@+id/productPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:text_appearance="@style/ExtraBoldNunitoBlack"
+                app:text="Iphone 13 pro max"
+                app:text_color="@color/colorPrimaryDark"
+                android:textSize="14sp"/>
+
+            <com.example.uitoolkit.custom.CustomMaterialTextView
+                android:id="@+id/disCountText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:text_appearance="@style/RegularNunitoBlack"
+                app:text="Iphone 13 pro max"
+                app:text_color="@color/colorPrimaryDark"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnBuyNow"
+            style="@style/Controls.Buttons.Default"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Buy now" />
+
+        <Button
+            android:id="@+id/btnContinue"
+            style="@style/Controls.Buttons.Default"
+            android:background="@drawable/shape_search"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/nunito_regular"
+            android:textColor="@color/colorSecondary"
+            android:text="Add to cart" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/specificationsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="29dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.example.uitoolkit.custom.CustomMaterialTextView
+                    android:id="@+id/specifications"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    app:text_appearance="@style/RegularNunitoBlack"
+                    app:text="Specifications"
+                    app:text_color="@color/colorPrimaryDark"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_arrow_right_small_stroke_gray"
+                    app:tint="@color/colorPrimaryDark" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reviewsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <com.example.uitoolkit.custom.CustomMaterialTextView
+                    android:id="@+id/reviews"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    app:text_appearance="@style/RegularNunitoBlack"
+                    app:text="Reviews"
+                    app:text_color="@color/colorPrimaryDark"
+                    android:textSize="16sp"/>
+
+                <com.example.uitoolkit.custom.CustomMaterialTextView
+                    android:id="@+id/reviewCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    app:text_appearance="@style/SemiBoldNunitoBlack"
+                    app:text="6"
+                    app:text_color="@color/colorAccentCarroot"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_arrow_right_small_stroke_gray"
+                    app:tint="@color/colorPrimaryDark" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/questionsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <com.example.uitoolkit.custom.CustomMaterialTextView
+                    android:id="@+id/questions"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    app:text_appearance="@style/RegularNunitoBlack"
+                    app:text="Questions"
+                    app:text_color="@color/colorPrimaryDark"
+                    android:textSize="16sp"/>
+
+                <com.example.uitoolkit.custom.CustomMaterialTextView
+                    android:id="@+id/questionCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    app:text_appearance="@style/SemiBoldNunitoBlack"
+                    app:text="6"
+                    app:text_color="@color/colorAccentCarroot"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_arrow_right_small_stroke_gray"
+                    app:tint="@color/colorPrimaryDark" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.example.uitoolkit.custom.CustomMaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                app:text_appearance="@style/SemiBoldNunitoBlack"
+                app:text="Similar goods"
+                app:text_color="@color/colorPrimaryDark"
+                android:textSize="18sp"/>
+
+
+            <com.example.uitoolkit.custom.CustomMaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:text_appearance="@font/nunito_medium"
+                app:text="See all"
+                app:text_color="@color/colorAccentCarroot"
+                android:textSize="14sp"/>
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/similarGoodsRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+
     </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

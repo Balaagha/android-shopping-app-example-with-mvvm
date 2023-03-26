@@ -18,8 +18,6 @@
     </declare-styleable>
 
     <declare-styleable name="ProductView">
-        <attr name="android:layout_height"/>
-        <attr name="android:layout_width"/>
         <attr name="percent" format="string"/>
         <attr name="android:src"/>
         <attr name="favourite_icon_selected" format="boolean"/>

@@ -8,15 +8,6 @@
         android:gravity="center_vertical"
         android:background="@drawable/shape_category">
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_search_stroke_gray"/>
-
         <com.example.uitoolkit.custom.CustomMaterialTextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -24,7 +15,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="14dp"
+            android:layout_marginEnd="12dp"
            app:text_appearance="@style/RegularNunitoWhite"
             app:text="Phones"
             app:text_color="@color/white"

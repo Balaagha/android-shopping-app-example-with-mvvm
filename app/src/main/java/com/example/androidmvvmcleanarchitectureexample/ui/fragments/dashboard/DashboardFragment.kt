@@ -6,6 +6,7 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.androidmvvmcleanarchitectureexample.R
 import com.example.androidmvvmcleanarchitectureexample.databinding.FragmentDashboardBinding
 import com.example.androidmvvmcleanarchitectureexample.databinding.ItemCategoryBinding
@@ -17,11 +18,12 @@ import com.example.data.features.dashboard.models.CategoryModel
 import com.example.data.features.dashboard.models.ProductModel
 import com.example.uitoolkit.utils.ItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
+import com.example.uitoolkit.custom.models.ProductViewModel
 
 @AndroidEntryPoint
-class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, ProductViewModel>(
+class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardViewModel>(
     R.layout.fragment_dashboard,
-    ProductViewModel::class
+    DashboardViewModel::class
 ) {
 
     private var itemDecorationCategoryRv = ItemDecoration(topSpace = 0,
@@ -54,24 +56,15 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, ProductView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val product = ProductModel(name = "Nuraddin")
-        val productList = ArrayList<ProductModel>()
-        productList.add(product)
 
+        viewModel.getCategoriesResult().observe(viewLifecycleOwner) {
+            initCategoriesRv(it)
+            initShopCategoriesRv(it)
+        }
 
-        val category = CategoryModel(name = "Nuraddin")
-        val categoryList = ArrayList<CategoryModel>()
-        categoryList.add(category)
-        categoryList.add(category)
-        categoryList.add(category)
-        categoryList.add(category)
-        categoryList.add(category)
-        categoryList.add(category)
-
-
-        initProductRv(productList)
-        initCategoriesRv(categoryList)
-        initShopCategoriesRv(categoryList)
+        viewModel.getProductsResult().observe(viewLifecycleOwner) {
+            initProductRv(it)
+        }
 
 
     }
@@ -97,6 +90,8 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, ProductView
         mProductAdapter.expressionViewHolderBinding = { item, viewType, isAlreadyRendered, viewBinding ->
             val itemView = viewBinding as ItemProductHorizontalBinding
             with(itemView){
+                val productModel = ProductViewModel(percent = null, imageurl = item.imageUrls!![0],)
+                productView.setViewData(productModel)
                 //tvAdd.text = item.name
                 root.setOnClickListener {
 
@@ -135,7 +130,7 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, ProductView
         mCategoriesAdapter.expressionViewHolderBinding = { item, viewType, isAlreadyRendered, viewBinding ->
             val itemView = viewBinding as ItemCategoryBinding
             with(itemView){
-                //tvAdd.text = item.name
+                title.text = item.name
                 root.setOnClickListener {
 
                 }
@@ -174,7 +169,10 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, ProductView
         mShopCategoriesAdapter.expressionViewHolderBinding = { item, viewType, isAlreadyRendered, viewBinding ->
             val itemView = viewBinding as ItemShopCategoryBinding
             with(itemView){
-                //tvAdd.text = item.name
+                name.text = item.name
+                Glide.with(requireActivity())
+                    .load(item.imgUrl)
+                    .into(image)
                 root.setOnClickListener {
 
                 }
