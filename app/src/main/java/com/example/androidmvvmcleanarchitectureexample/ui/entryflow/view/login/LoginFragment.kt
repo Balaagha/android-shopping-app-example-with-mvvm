@@ -7,7 +7,6 @@ import android.view.View
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import com.example.androidmvvmcleanarchitectureexample.R
-import com.example.androidmvvmcleanarchitectureexample.databinding.FragmentCreateAccountFirstBinding
 import com.example.androidmvvmcleanarchitectureexample.databinding.FragmentLoginBinding
 import com.example.androidmvvmcleanarchitectureexample.helper.util.InputTextWatcherDelegate
 import com.example.androidmvvmcleanarchitectureexample.ui.MainActivity
@@ -24,10 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginFragment : BaseMvvmFragment<FragmentLoginBinding, EntryViewModel>(
     R.layout.fragment_login, EntryViewModel::class
 ) {
-
-    private val sharedPrefsManager by lazy {
-        SharedPrefsManager(context, SharedTypes.USER_DATA)
-    }
 
     private val inputTextWatcherDelegateList: ArrayList<InputTextWatcherDelegate> = ArrayList()
 
@@ -48,11 +43,7 @@ class LoginFragment : BaseMvvmFragment<FragmentLoginBinding, EntryViewModel>(
     override fun handleUiActionEvent(action: String?) {
         when (action) {
             GO_TO_PROFILE_SCREEN -> {
-                Log.d("myTag","GO_TO_PROFILE_SCREEN in lower")
-                activity?.apply {
-                    finish()
-                    startActivity(Intent(requireContext(), MainActivity::class.java))
-                }
+                findNavController().navigate(R.id.action_global_userProfileFillFragment)
             }
             GO_TO_DASHBOARD -> {
                 Log.d("myTag","GO_TO_DASHBOARD in lower")

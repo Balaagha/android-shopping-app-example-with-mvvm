@@ -90,6 +90,12 @@ object AppDependencies {
         add(AndroidTestImplementationLibraries.roomTesting)
     }
 
+    object Firebase {
+        const val firebaseBom = "com.google.firebase:firebase-bom:31.2.3"
+        const val firebaseStorage = "com.google.firebase:firebase-storage-ktx"
+
+    }
+
     object Animation {
         const val lottie = "com.airbnb.android:lottie:2.6.0"
     }

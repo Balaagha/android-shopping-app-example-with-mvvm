@@ -26,6 +26,7 @@ object Dependencies {
     const val navigationSafeArgsPlugin = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navVersion}"
     const val hiltAndroidGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.daggerHiltVersion}"
     const val kotlinSerializationClassPath = "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlinVersion}"
+    const val googleServices = "com.google.gms:google-services:4.3.15"
 }
 
 object Modules {

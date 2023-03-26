@@ -42,6 +42,8 @@ class SplashFragment : BaseMvvmFragment<FragmentSplashBinding, EntryViewModel>(
                         finish()
                         startActivity(Intent(requireContext(), MainActivity::class.java))
                     }
+                } else if(userDataManager.checkUserIsLogin()) {
+                    findNavController().navigate(R.id.action_splashFragment_to_loginFlowTypeFragment)
                 } else {
                     findNavController().navigate(R.id.action_splashFragment_to_onBoardingIntroFragment)
                 }

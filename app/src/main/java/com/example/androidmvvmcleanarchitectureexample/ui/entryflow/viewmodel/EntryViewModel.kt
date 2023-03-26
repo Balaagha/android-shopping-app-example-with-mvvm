@@ -1,16 +1,19 @@
 package com.example.androidmvvmcleanarchitectureexample.ui.entryflow.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.example.androidmvvmcleanarchitectureexample.ui.entryflow.model.CreateUserData
+import com.example.androidmvvmcleanarchitectureexample.helper.toCustomerModelUiData
+import com.example.androidmvvmcleanarchitectureexample.ui.entryflow.model.CustomerModelUiData
 import com.example.androidmvvmcleanarchitectureexample.ui.entryflow.view.login.CreateAccountSecondFragment
 import com.example.androidmvvmcleanarchitectureexample.ui.entryflow.view.login.LoginFragment
+import com.example.androidmvvmcleanarchitectureexample.ui.entryflow.view.login.UserProfileFillFragment
 import com.example.core.viewmodel.BaseViewModel
+import com.example.data.base.models.EmptyRequest
 import com.example.data.features.entry.usecase.CreateAccountUseCase
+import com.example.data.features.entry.usecase.GetCustomerUseCase
 import com.example.data.features.entry.usecase.LoginAccountUseCase
+import com.example.data.features.entry.usecase.UpdateCustomerUseCase
 import com.example.data.helper.manager.UserDataManager
-import com.example.data.utils.SharedConstant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -19,6 +22,8 @@ import javax.inject.Inject
 class EntryViewModel @Inject constructor(
     private val createAccountUseCase: CreateAccountUseCase,
     private val loginAccountUseCase: LoginAccountUseCase,
+    private val getCustomerUseCase: GetCustomerUseCase,
+    private val updateCustomerUseCase: UpdateCustomerUseCase,
     private val userDataManager: UserDataManager,
     savedStateHandle: SavedStateHandle,
     private val applicationData: Application
@@ -27,8 +32,9 @@ class EntryViewModel @Inject constructor(
     application = applicationData
 ) {
 
-    var createUserUiData: CreateUserData = CreateUserData()
-    var loginUserUiData: CreateUserData = CreateUserData()
+    var createUserUiData: CustomerModelUiData = CustomerModelUiData()
+    var loginUserUiData: CustomerModelUiData = CustomerModelUiData()
+    var userProfileUiData: CustomerModelUiData = CustomerModelUiData()
 
     var isRememberMeChecked: Boolean = false
 
@@ -39,14 +45,14 @@ class EntryViewModel @Inject constructor(
     }
 
     fun clearViewData() {
-        createUserUiData = CreateUserData()
-        loginUserUiData = CreateUserData()
+        createUserUiData = CustomerModelUiData()
+        loginUserUiData = CustomerModelUiData()
         isRememberMeChecked = false
     }
 
     fun createUser() {
         createAccountUseCase.execute(
-            createUserUiData.toCustomerRequestModel(),
+            createUserUiData.toCustomerRequestModelForCreateCustomer(),
             successOperation = {
                 isRegisteredUser = true
                 if (isRememberMeChecked) {
@@ -66,6 +72,7 @@ class EntryViewModel @Inject constructor(
     fun loginUser() {
         loginAccountUseCase.execute(
             loginUserUiData.toCustomerLoginRequestModel(),
+            isDismissHideBaseLoadingIndicator = true,
             successOperation = {
                 if (isRememberMeChecked) {
                     userDataManager.saveUserEmailAndPassword(
@@ -78,12 +85,27 @@ class EntryViewModel @Inject constructor(
                 }
                 userDataManager.saveApiToken(it.invoke()?.token,true)
                 if (isRegisteredUser){
-                    eventUiAction.postValue(LoginFragment::class.java to GO_TO_PROFILE_SCREEN)
+                    getCustomerUseCase.execute(
+                        EmptyRequest,
+                        successOperation = { customerData ->
+                            userProfileUiData = customerData.invoke()?.toCustomerModelUiData() ?: CustomerModelUiData()
+                            eventUiAction.postValue(LoginFragment::class.java to GO_TO_PROFILE_SCREEN)
+                        },failOperation = {
+                            eventUiAction.postValue(LoginFragment::class.java to GO_TO_DASHBOARD)
+                        }
+                    )
                 } else {
+                    loadingEvent.postValue(false)
                     eventUiAction.postValue(LoginFragment::class.java to GO_TO_DASHBOARD)
                 }
             }
         )
+    }
+
+    fun updateUserProfile() {
+        updateCustomerUseCase.execute(userProfileUiData.toCustomerRequestModelForUpdateCustomer(),successOperation = {
+            eventUiAction.postValue(UserProfileFillFragment::class.java to GO_TO_DASHBOARD)
+        })
     }
 
     companion object {

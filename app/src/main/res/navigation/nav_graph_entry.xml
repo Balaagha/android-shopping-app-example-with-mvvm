@@ -15,6 +15,11 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/splashFragment"
             app:destination="@id/onBoardingIntroFragment"/>
+        <action
+            android:id="@+id/action_splashFragment_to_loginFlowTypeFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/splashFragment"
+            app:destination="@id/loginFlowTypeFragment" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingIntroFragment"
@@ -68,6 +73,12 @@
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login"/>
 
+    <fragment
+        android:id="@+id/userProfileFillFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.entryflow.view.login.UserProfileFillFragment"
+        android:label="UserProfileFillFragment"
+        tools:layout="@layout/fragment_user_profile_fill"/>
+
 
     <action android:id="@+id/action_global_loginFragment"
         app:popUpToInclusive="false"
@@ -78,5 +89,10 @@
         app:popUpToInclusive="false"
         app:popUpTo="@id/loginFlowTypeFragment"
         app:destination="@id/createAccountFirstFragment"/>
+
+    <action android:id="@+id/action_global_userProfileFillFragment"
+        app:popUpToInclusive="true"
+        app:popUpTo="@id/loginFlowTypeFragment"
+        app:destination="@id/userProfileFillFragment"/>
 
 </navigation>

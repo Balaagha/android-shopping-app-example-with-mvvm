@@ -1,6 +1,7 @@
 package com.example.core.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -59,34 +60,45 @@ open class BaseViewModel(
         SingleLiveEvent()
 
 
+    suspend fun handleIt(here: Long, call: suspend (hereId: Long) -> Unit) {
+        call(here)
+    }
+
     protected fun <T, R> BaseUseCaseForNetwork<T, R>.execute(
         params: R,
-        successOperation: ((value: DataWrapper<T>) -> Unit)? = null,
-        failOperation: ((value: DataWrapper<T>) -> Unit)? = null,
+        successOperation: (suspend (value: DataWrapper<T>) -> Unit)? = null,
+        failOperation: (suspend (value: DataWrapper<T>) -> Unit)? = null,
         block: ((value: DataWrapper<T>) -> Unit)? = null,
+        isDismissHideBaseLoadingIndicator: Boolean = false,
+        isDismissProcessFailureExecution: Boolean = false
     ) {
         launchSafe {
-                if(isShowBaseLoadingIndicator){
-                    loadingEvent.postValue(true)
-                }
-                when (val result = this@execute.invoke(params)) {
-                    is DataWrapper.Success -> {
-                        if(isShowBaseLoadingIndicator){
-                            loadingEvent.postValue(false)
-                        }
-                        successOperation?.invoke(result)
+            if (isShowBaseLoadingIndicator) {
+                loadingEvent.postValue(true)
+            }
+            val result = this@execute.invoke(params)
+            when (result) {
+                is DataWrapper.Success -> {
+                    if (isShowBaseLoadingIndicator && isDismissHideBaseLoadingIndicator.not()) {
+                        Log.d("BaseViewModel", "execute: is Dissmiss loading")
+                        loadingEvent.postValue(false)
                     }
-                    is DataWrapper.Failure -> {
-                        if(isShowBaseLoadingIndicator){
-                            loadingEvent.postValue(false)
-                        }
+                    successOperation?.invoke(result)
+                }
+                is DataWrapper.Failure -> {
+                    if (isShowBaseLoadingIndicator) {
+                        loadingEvent.postValue(false)
+                    }
+                    if (isDismissProcessFailureExecution.not()) {
                         processFailureExecution(result)
-                        failOperation?.invoke(result)
                     }
-                    else -> {
-                        // Nothing
-                    }
+                    failOperation?.invoke(result)
                 }
+                else -> {
+                    // Nothing
+                }
+            }
+            block?.invoke(result)
         }
     }
 

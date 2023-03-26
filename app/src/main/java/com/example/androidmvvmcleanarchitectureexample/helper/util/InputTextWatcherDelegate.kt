@@ -72,26 +72,39 @@ class InputTextWatcherDelegate(
 
         isRunning = true
 
+        Log.d(
+            "InputTextWatcher", "maxTextLength +> $maxTextLength | " +
+                    "(maskDecoderBlock?.invoke(editable.toString())?.length\n" +
+                    "                ?: editable.toString().length) > (maxTextLength ?: 0) => ${
+                        (maskDecoderBlock?.invoke(editable.toString())?.length
+                            ?: editable.toString().length) > (maxTextLength ?: 0)
+                    }" +
+                    ""
+        )
         if (maxTextLength.isNotNull() && (maskDecoderBlock?.invoke(editable.toString())?.length
                 ?: editable.toString().length) > (maxTextLength ?: 0)
         ) {
+            Log.d("InputTextWatcher", "true case and set setTextViewValueWithoutNotifyWatcher ")
             setTextViewValueWithoutNotifyWatcher(previosTextValue)
         } else {
-            mask?.let { mMask ->
+            Log.d("InputTextWatcher", "false case")
+            if (isDeleting.not() && mask.isNotNull()) {
                 val editableLength = editable.length
-                if (editableLength < mMask.length) {
-                    if (mMask[editableLength] != '#') {
-                        editable.append(mMask[editableLength])
-                    } else if (mMask[editableLength - 1] != '#') {
+                Log.d("InputTextWatcher", "editableLength => $editableLength")
+                if (editableLength < mask!!.length) {
+                    if (mask[editableLength] != '#') {
+                        editable.append(mask[editableLength])
+                    } else if (mask[editableLength - 1] != '#') {
                         editable.insert(
                             editableLength - 1,
-                            mMask,
+                            mask,
                             editableLength - 1,
                             editableLength
                         )
                     }
                 }
             }
+
 
             isValid =
                 checkValidationWithCustomBehaviorBlock?.invoke(editable.toString()) ?: kotlin.run {

@@ -3,7 +3,7 @@ package com.example.data.helper.models.typedefs
 import androidx.annotation.StringDef
 
 object SharedTypes {
-    const val USER_DATA = "userDataPref"
+    const val USER_DATA = "userDataPrefData"
 
     @Retention(AnnotationRetention.SOURCE)
     @StringDef(

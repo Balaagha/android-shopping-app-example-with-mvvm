@@ -6,4 +6,6 @@ interface UserDataManager  {
     fun getUserPassword(): String?
     fun saveApiToken(apiTokenValue: String?, isEncrypt: Boolean = false)
     fun setApiToken(): Boolean
+    fun clearUserData()
+    fun checkUserIsLogin(): Boolean
 }

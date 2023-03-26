@@ -20,8 +20,12 @@ class UserDataManagerImpl @Inject constructor(
 
     private var userEmail: String? = null
     private var userPassword: String? = null
+    private var isUserLogin: Boolean = false
 
     override fun saveApiToken(apiTokenValue: String?, isEncrypt: Boolean) {
+        if(isUserLogin.not()){
+            isUserLogin = apiTokenValue?.isNotEmpty() == true
+        }
         val sharedPrefsManager = SharedPrefsManager(applicationContext.applicationContext, SharedTypes.USER_DATA)
         sharedPrefsManager.set(SharedConstant.API_TOKEN, apiTokenValue, isEncrypt)
         Log.d("myTag","token: $apiTokenValue | getApiToken after save=> &${getApiToken()} in getApiToken")
@@ -35,6 +39,15 @@ class UserDataManagerImpl @Inject constructor(
             getApiToken()
         )
         return token != null && token.isNotEmpty()
+    }
+
+    override fun clearUserData() {
+        saveApiToken("",false)
+        tokenManager.setAuthorizationToken("")
+    }
+
+    override fun checkUserIsLogin(): Boolean {
+        return isUserLogin
     }
 
     override fun saveUserEmailAndPassword(userNameValue: String?, passwordValue: String?, isEncrypt: Boolean){
