@@ -15,9 +15,10 @@
             app:cardElevation="0dp">
 
             <com.example.uitoolkit.custom.ProductView
+                android:id="@+id/productView"
                 android:layout_width="@dimen/_163sdp"
                 android:layout_height="@dimen/_163sdp"
-                android:src="@color/colorAccentCarroot"/>
+                android:background="@color/colorAccentCarroot"/>
 
         </androidx.cardview.widget.CardView>
         

@@ -2,6 +2,7 @@ package com.example.data.di
 
 import com.example.data.base.interceptors.TokenManager
 import com.example.data.features.common.services.CommonFlowServices
+import com.example.data.features.dashboard.services.DashboardServices
 import com.example.data.features.entry.services.EntryFlowServices
 import dagger.Module
 import dagger.Provides
@@ -90,5 +91,11 @@ open class DataModule {
     }
     // services region end
 
-
+    @Singleton
+    @Provides
+    fun provideDashboardServices(
+        retrofit: Retrofit,
+    ): DashboardServices {
+        return retrofit.create(DashboardServices::class.java)
+    }
 }
