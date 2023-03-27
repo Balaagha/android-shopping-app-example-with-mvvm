@@ -66,8 +66,6 @@ class ProfileEntryFragment : BaseMvvmFragment<FragmentProfileEntryBinding, Profi
 
     override fun performOnViewCreatedIfViewDestroyedAtLeastOnce() {
         viewModel.profileUiData.value?.let { setViewData(it) }
-        Log.d("ProfileEntryFragment", "performOnViewCreatedIfViewDestroyedAtLeastOnce: is called"  )
-
     }
 
     private fun initViewObserver() {
@@ -103,6 +101,10 @@ class ProfileEntryFragment : BaseMvvmFragment<FragmentProfileEntryBinding, Profi
             }
             btnEditProfile.setOnClickListener {
                 findNavController().navigate(R.id.action_profileEntryFragment_to_profileUpdateFragment)
+            }
+            btnAddProduct.setOnClickListener {
+                viewModel.clearAddedProductData()
+                findNavController().navigate(R.id.action_profileEntryFragment_to_addProductFragment)
             }
         }
     }

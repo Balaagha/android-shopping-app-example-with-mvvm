@@ -1,15 +1,19 @@
 package com.example.androidmvvmcleanarchitectureexample.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.example.androidmvvmcleanarchitectureexample.R
 import com.example.androidmvvmcleanarchitectureexample.databinding.ActivityMainBinding
+import com.example.androidmvvmcleanarchitectureexample.ui.entryflow.activity.LoginActivity
 import com.example.core.helper.viewInflateBinding
 import com.example.core.view.BaseActivity
+import com.example.data.helper.manager.UserDataManager
 import com.example.uitoolkit.loading.LoadingPopup
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -17,6 +21,9 @@ class MainActivity : BaseActivity() {
 
     private val binding: ActivityMainBinding by viewInflateBinding(ActivityMainBinding::inflate)
     private lateinit var navController: NavController
+
+    @Inject
+    lateinit var userDataManager: UserDataManager
 
     private val loadingDialog: LoadingPopup? by lazy {
         LoadingPopup.getInstance(this).customLayoutLoading()
@@ -45,6 +52,12 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         navController = Navigation.findNavController(this, R.id.fragment_main_container)
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
+    }
+
+    override fun logOut() {
+        userDataManager.clearUserData()
+        finish()
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
 }

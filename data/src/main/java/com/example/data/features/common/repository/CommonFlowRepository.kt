@@ -3,6 +3,8 @@ package com.example.data.features.common.repository
 import android.content.Context
 import com.example.data.base.models.DataWrapper
 import com.example.data.base.repository.BaseRepository
+import com.example.data.features.common.model.AddProductRequestModel
+import com.example.data.features.common.model.AddProductResponseModel
 import com.example.data.features.common.model.SampleResponseModel
 import com.example.data.features.common.services.CommonFlowServices
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -13,6 +15,8 @@ import javax.inject.Singleton
 interface CommonFlowRepository {
 
     suspend fun getSampleData(): DataWrapper<Response<SampleResponseModel>>
+
+    suspend fun addProduct(requestData: AddProductRequestModel): DataWrapper<Response<AddProductResponseModel>>
 
 }
 
@@ -28,6 +32,14 @@ class CommonFlowRepositoryImpl @Inject constructor(
             services.getSampleData(
                 queries = hashMapOf(),
                 headers = hashMapOf()
+            )
+        }
+    }
+
+    override suspend fun addProduct(requestData: AddProductRequestModel): DataWrapper<Response<AddProductResponseModel>> {
+        return launchApiCall {
+            services.addProducts(
+                requestData = requestData
             )
         }
     }

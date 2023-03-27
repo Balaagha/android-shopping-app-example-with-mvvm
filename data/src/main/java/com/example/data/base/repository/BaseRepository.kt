@@ -48,7 +48,7 @@ open class BaseRepository(
         apiCall: () -> Response<T>
     ): DataWrapper<Response<T>> {
         return try {
-            if (true) {
+            if (networkStatusListenerHelper.getNetworkAvailabilityStatus()) {
                 var response =
                     if ((appConfig.isMock || fetchType == FetchType.MockFetcher) && jsonAssetPath?.isNotEmpty() == true) {
                         val jsonString = loadJSONFromAsset(mContext, jsonAssetPath)

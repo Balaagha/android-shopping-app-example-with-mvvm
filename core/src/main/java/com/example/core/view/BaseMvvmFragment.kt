@@ -119,6 +119,9 @@ abstract class BaseMvvmFragment<VB : ViewDataBinding, VM : BaseViewModel>(
             is BaseUiEvent.Toast -> {
                 showToastViaBaseUiEvent(uiActionEvent)
             }
+            is BaseUiEvent.LogOut -> {
+                (activity as? BaseActivity)?.logOut()
+            }
             else -> {
 //                Timber.e("Unknown event handle $uiActionEvent ")
             }

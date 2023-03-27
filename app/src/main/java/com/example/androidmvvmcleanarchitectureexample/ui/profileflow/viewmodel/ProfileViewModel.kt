@@ -1,14 +1,21 @@
 package com.example.androidmvvmcleanarchitectureexample.ui.profileflow.viewmodel
 
 import android.app.Application
+import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.example.androidmvvmcleanarchitectureexample.helper.toCustomerModelUiData
 import com.example.androidmvvmcleanarchitectureexample.ui.entryflow.model.CustomerModelUiData
+import com.example.androidmvvmcleanarchitectureexample.ui.profileflow.model.AddProductModelUiData
 import com.example.androidmvvmcleanarchitectureexample.ui.profileflow.model.ProfileMenuItemType
 import com.example.androidmvvmcleanarchitectureexample.ui.profileflow.model.ProfileMenuItemUiData
+import com.example.androidmvvmcleanarchitectureexample.ui.profileflow.view.AddProductFragment
 import com.example.androidmvvmcleanarchitectureexample.ui.profileflow.view.ProfileUpdateFragment
 import com.example.core.viewmodel.BaseViewModel
 import com.example.data.base.models.EmptyRequest
+import com.example.data.features.common.usecase.AddProductsUseCase
+import com.example.data.features.dashboard.models.CategoryModel
+import com.example.data.features.dashboard.usecase.GetCategoriesUseCase
 import com.example.data.features.entry.model.CustomerResponseModel
 import com.example.data.features.entry.usecase.GetCustomerUseCase
 import com.example.data.features.entry.usecase.UpdateCustomerUseCase
@@ -23,6 +30,8 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val getCustomerUseCase: GetCustomerUseCase,
     private val updateCustomerUseCase: UpdateCustomerUseCase,
+    private val getCategoriesUseCase: GetCategoriesUseCase,
+    private val addProductsUseCase: AddProductsUseCase,
     private val userDataManager: UserDataManager,
     savedStateHandle: SavedStateHandle,
     private val applicationData: Application
@@ -63,9 +72,43 @@ class ProfileViewModel @Inject constructor(
         )
     }
 
+    private val _categoryListUiData: MutableStateFlow<List<CategoryModel>?> = MutableStateFlow(null)
+    val categoryListUiData = _categoryListUiData.asStateFlow()
+
     private val _profileUiData: MutableStateFlow<CustomerResponseModel?> = MutableStateFlow(null)
     val profileUiData = _profileUiData.asStateFlow()
+
     var userProfileUiData: CustomerModelUiData = CustomerModelUiData()
+
+    var addProductModelUiData: AddProductModelUiData = AddProductModelUiData()
+    fun addImageToImageListForAddingProduct(imageUrl: Uri?) {
+        imageUrl?.let {
+            this.addProductModelUiData.imageUrls.add(it.toString())
+        }
+        Log.d("TAG", "addImageToImageListForAddingProduct: ${this.addProductModelUiData.imageUrls}")
+    }
+
+    fun addCategorySelection(category: CategoryModel) {
+        this.addProductModelUiData.categories = category.name
+    }
+    fun checkIfUserSelectCategoryForAddingProduct(): Boolean {
+        return this.addProductModelUiData.categories?.isNotEmpty() == true
+    }
+    fun checkIfUserAddImageForAddingProduct(): Boolean {
+        return this.addProductModelUiData.imageUrls.isNotEmpty()
+    }
+    fun addProduct() {
+        addProductsUseCase.execute(
+            addProductModelUiData.toAddProductRequestModel(),
+            successOperation = {
+                eventUiAction.postValue(AddProductFragment::class.java to GO_TO_PROFILE_SCREEN)
+            }
+        )
+    }
+
+    fun clearAddedProductData() {
+        this.addProductModelUiData = AddProductModelUiData()
+    }
 
     fun getUserProfileData() {
         getCustomerUseCase.execute(
@@ -90,6 +133,16 @@ class ProfileViewModel @Inject constructor(
 
     fun clearUserData() {
         userDataManager.clearUserData()
+    }
+
+    fun getCategoryListData() {
+        if(categoryListUiData.value != null) return
+        getCategoriesUseCase.execute(
+            EmptyRequest,
+            successOperation = {
+                _categoryListUiData.value = it.invoke()
+            }
+        )
     }
 
     companion object {

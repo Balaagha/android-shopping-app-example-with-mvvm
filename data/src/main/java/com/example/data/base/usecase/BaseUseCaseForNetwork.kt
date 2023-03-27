@@ -55,7 +55,7 @@ abstract class BaseUseCaseForNetwork <ResponseType, in RequestParams> {
                                 failureType = FailureType.AUTH_TOKEN_EXPIRED,
                                 code = data.value.code(),
                                 message = data.value.errorBody()?.string(),
-                                failureBehavior = FailureBehavior.SILENT
+                                failureBehavior = FailureBehavior.LOG_OUT
                             )
                         } else {
                             val errorResponse: ApiErrorResponseModel? = parseErrorBody(data.value.errorBody())

@@ -1,6 +1,11 @@
 package com.example.data.base.interceptors
 
+import android.app.Application
+import android.content.Intent
 import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
+import com.example.data.helper.manager.UserDataManager
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject

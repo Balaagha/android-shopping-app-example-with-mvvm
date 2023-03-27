@@ -4,6 +4,7 @@ enum class FailureBehavior {
   SILENT,
   ALERT,
   SNACK_BAR,
-  TOAST
+  TOAST,
+  LOG_OUT
 }
 

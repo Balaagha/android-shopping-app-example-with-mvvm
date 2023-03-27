@@ -11,4 +11,6 @@ sealed class BaseUiEvent {
         @StringRes val titleRes: Int? = null,
         @StringRes val messageRes: Int? = null
     ) : BaseUiEvent()
+
+    object LogOut : BaseUiEvent()
 }

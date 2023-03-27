@@ -17,4 +17,8 @@ abstract class BaseActivity: AppCompatActivity() {
         window.setStatusBarColorAnyVersion(colorRes)
     }
 
+    open fun logOut() {
+        TODO("Not yet implemented")
+    }
+
 }

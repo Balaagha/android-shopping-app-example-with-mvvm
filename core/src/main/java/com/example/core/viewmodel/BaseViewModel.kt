@@ -120,6 +120,9 @@ open class BaseViewModel(
             FailureBehavior.TOAST -> {
                 event.postValue(BaseUiEvent.Toast())
             }
+            FailureBehavior.LOG_OUT -> {
+                event.postValue(BaseUiEvent.LogOut)
+            }
             else -> {
                 // Nothing
             }
