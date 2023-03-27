@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.example.common.utils.extentions.asDp
 import com.example.uitoolkit.R
-import com.example.uitoolkit.custom.models.ProductViewModel
+import com.example.uitoolkit.custom.models.ItemModel
 
 class ProductView @JvmOverloads constructor(
     context: Context,
@@ -22,7 +20,7 @@ class ProductView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
 
-    private var productViewModel = ProductViewModel()
+    private var productViewModel = ItemModel()
     private var favouriteIcon: ImageView
     private var image: ImageView
     private var percentText: TextView
@@ -58,8 +56,6 @@ class ProductView @JvmOverloads constructor(
                 )
             productViewModel.favouriteIconSelected =
                 getBoolean(R.styleable.ProductView_favourite_icon_selected, false)
-
-            src = getResourceId(R.styleable.ProductView_android_src, R.color.colorSecondary)
         }
         arr.recycle()
         refreshViewState()
@@ -90,7 +86,7 @@ class ProductView @JvmOverloads constructor(
         }
     }
 
-    fun setViewData(data: ProductViewModel) {
+    fun setViewData(data: ItemModel) {
         productViewModel = data
         refreshViewState()
     }
@@ -99,13 +95,4 @@ class ProductView @JvmOverloads constructor(
         Glide.with(context).load(url).into(image)
     }
 
-    private fun setHeight(height: Float) {
-        lp.height = height.asDp
-        mainLayout.layoutParams = lp
-    }
-
-    private fun setWidth(width: Float) {
-        lp.width = width.asDp
-        mainLayout.layoutParams = lp
-    }
 }

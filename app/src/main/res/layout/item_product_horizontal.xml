@@ -17,8 +17,7 @@
             <com.example.uitoolkit.custom.ProductView
                 android:id="@+id/productView"
                 android:layout_width="@dimen/_163sdp"
-                android:layout_height="@dimen/_163sdp"
-                android:background="@color/colorAccentCarroot"/>
+                android:layout_height="@dimen/_163sdp" />
 
         </androidx.cardview.widget.CardView>
         

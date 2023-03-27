@@ -1,4 +1,4 @@
-package com.example.androidmvvmcleanarchitectureexample.ui.fragments.products
+package com.example.androidmvvmcleanarchitectureexample.ui.fragments.search
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
@@ -7,40 +7,33 @@ import com.example.core.viewmodel.BaseViewModel
 import com.example.data.features.dashboard.models.ProductModel
 import com.example.data.features.dashboard.models.ProductsRequest
 import com.example.data.features.dashboard.models.SearchRequest
-import com.example.data.features.dashboard.usecase.GetProductsByCategoryIdUseCase
+import com.example.data.features.dashboard.usecase.GetProductsUseCase
 import com.example.data.features.dashboard.usecase.SearchProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductsViewModel @Inject constructor(
-    private val getProductsByCategoryIdUseCase: GetProductsByCategoryIdUseCase,
+class SearchViewModel @Inject constructor(
     private val searchProductsUseCase: SearchProductsUseCase,
     savedState: SavedStateHandle,
     private val application: Application
 ) : BaseViewModel(savedState, application) {
 
+    private val searchResult = MutableLiveData<List<ProductModel>>()
 
-    var page = 1
+    fun getSearchResult() : MutableLiveData<List<ProductModel>> {
 
-    private val productsResult = MutableLiveData<List<ProductModel>>()
-
-    fun getProductsResult() : MutableLiveData<List<ProductModel>> {
-
-        return productsResult
+        return searchResult
     }
 
-
-
-    fun getProducts(id: String) {
+    fun searchProducts(query: String) {
         isShowBaseLoadingIndicator = false
-        val request = ProductsRequest(perPage = 20,startPage = page,categories = id)
-        getProductsByCategoryIdUseCase.execute(
+        val request = SearchRequest(query = query)
+        searchProductsUseCase.execute(
             params = request,
             successOperation = {
-                productsResult.postValue(it.invoke()?.products)
+                searchResult.postValue(it.invoke())
             }
         )
     }
-
 }

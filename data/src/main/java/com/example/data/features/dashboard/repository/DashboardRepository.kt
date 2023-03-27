@@ -6,9 +6,7 @@ import com.example.data.base.models.RequestWrapper
 import com.example.data.base.repository.BaseRepository
 import com.example.data.features.common.model.SampleResponseModel
 import com.example.data.features.common.services.CommonFlowServices
-import com.example.data.features.dashboard.models.CategoryModel
-import com.example.data.features.dashboard.models.ProductsContent
-import com.example.data.features.dashboard.models.ProductsRequest
+import com.example.data.features.dashboard.models.*
 import com.example.data.features.dashboard.services.DashboardServices
 import com.example.data.features.entry.model.CustomerLoginRequestModel
 import com.example.data.features.entry.model.CustomerLoginResponseModel
@@ -25,6 +23,13 @@ interface DashboardRepository {
     suspend fun getCategories(): DataWrapper<Response<List<CategoryModel>>>
 
     suspend fun getProducts(requestData: ProductsRequest): DataWrapper<Response<ProductsContent>>
+
+    suspend fun getProductsByCategoryId(requestData: ProductsRequest): DataWrapper<Response<ProductsContent>>
+
+    suspend fun searchProducts(requestData: SearchRequest): DataWrapper<Response<List<ProductModel>>>
+
+    suspend fun getProduct(requestData: ProductsRequest): DataWrapper<Response<List<ProductModel>>>
+
 }
 
 @Singleton
@@ -42,6 +47,24 @@ class DashboardRepositoryImpl @Inject constructor(
     override suspend fun getProducts(requestData: ProductsRequest): DataWrapper<Response<ProductsContent>> {
         return launchApiCall {
             services.getProducts(perPage = requestData.perPage!!, startPage = requestData.startPage!!)
+        }
+    }
+
+    override suspend fun getProductsByCategoryId(requestData: ProductsRequest): DataWrapper<Response<ProductsContent>> {
+        return launchApiCall {
+            services.getProductsByCategoryId(perPage = requestData.perPage!!, startPage = requestData.startPage!!, categories = requestData.categories!!)
+        }
+    }
+
+    override suspend fun searchProducts(requestData: SearchRequest): DataWrapper<Response<List<ProductModel>>> {
+        return launchApiCall {
+            services.searchProducts(requestData)
+        }
+    }
+
+    override suspend fun getProduct(requestData: ProductsRequest): DataWrapper<Response<List<ProductModel>>> {
+        return launchApiCall {
+            services.getProduct(requestData.itemNo!!)
         }
     }
 

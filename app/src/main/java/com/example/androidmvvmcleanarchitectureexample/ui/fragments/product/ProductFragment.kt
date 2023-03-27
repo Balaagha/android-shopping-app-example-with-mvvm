@@ -3,15 +3,15 @@ package com.example.androidmvvmcleanarchitectureexample.ui.fragments.product
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidmvvmcleanarchitectureexample.R
 import com.example.androidmvvmcleanarchitectureexample.databinding.*
-import com.example.androidmvvmcleanarchitectureexample.ui.fragments.dashboard.ProductViewModel
 import com.example.common.adapters.genericadapter.GenericAdapter
 import com.example.core.view.BaseMvvmFragment
-import com.example.data.features.dashboard.models.CategoryModel
 import com.example.data.features.dashboard.models.ProductModel
+import com.example.uitoolkit.custom.models.ItemModel
 import com.example.uitoolkit.utils.ItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,6 +20,9 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
     R.layout.fragment_product,
     ProductViewModel::class
 ) {
+    private val args: ProductFragmentArgs by navArgs()
+
+    private var itemNo: String? = null
 
     private var itemDecorationCategoryRv = ItemDecoration(
         topSpace = 0,
@@ -33,32 +36,34 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
         GenericAdapter<ProductModel>(requireContext())
     }
 
-    private val mCategoriesAdapter by lazy {
+    private val mSimilarGoodsAdapter by lazy {
         GenericAdapter<ProductModel>(requireContext())
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        itemNo = args.itemNo
+        viewModel.getProduct(itemNo!!)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val product = ProductModel(name = "Nuraddin")
-        val productList = ArrayList<ProductModel>()
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
 
 
-        initImageRv(productList)
-        initSimilarGoodsRv(productList)
+        //initSimilarGoodsRv(productList)
+
+        viewModel.getProductResult().observe(viewLifecycleOwner) {
+            val filteredList = it.subList(0,9)
+            initImageRv(filteredList)
+            binding.indicators.attachTo(binding.imageRv, true)
+        }
 
 
-        binding.indicators.attachTo(binding.imageRv, true)
-
+        viewModel.getProductsResult().observe(viewLifecycleOwner) {
+            initSimilarGoodsRv(it)
+        }
 
     }
 
@@ -81,13 +86,12 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
         mAdapter.expressionViewHolderBinding = { item, viewType, isAlreadyRendered, viewBinding ->
             val itemView = viewBinding as ItemProductCardBinding
             with(itemView) {
-                //tvAdd.text = item.name
-                root.setOnClickListener {
-
+                val productModel = ItemModel()
+                if(item.imageUrls!!.isNotEmpty()) {
+                    productModel.imageurl = item.imageUrls!![0]
                 }
+                image.setViewData(productModel)
             }
-
-
         }
 
         mAdapter.expressionOnCreateViewHolder = { viewGroup, viewType ->
@@ -106,22 +110,23 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
         val manager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         with(binding.similarGoodsRv) {
             layoutManager = manager
-            adapter = mCategoriesAdapter
+            adapter = mSimilarGoodsAdapter
         }
         binding.similarGoodsRv.addItemDecoration(itemDecorationCategoryRv)
 
-        mCategoriesAdapter.setData(
+        mSimilarGoodsAdapter.setData(
             list = categoryList,
             notifyFunc = { mAdapter ->
                 mAdapter.notifyDataSetChanged()
             }
         )
 
-        mCategoriesAdapter.expressionViewHolderBinding =
+        mSimilarGoodsAdapter.expressionViewHolderBinding =
             { item, viewType, isAlreadyRendered, viewBinding ->
                 val itemView = viewBinding as ItemProductHorizontalBinding
                 with(itemView) {
-                    //tvAdd.text = item.name
+                    val productModel = ItemModel(percent = null, imageurl = item.imageUrls!![0])
+                    productView.setViewData(productModel)
                     root.setOnClickListener {
 
                     }
@@ -130,7 +135,7 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
 
             }
 
-        mCategoriesAdapter.expressionOnCreateViewHolder = { viewGroup, viewType ->
+        mSimilarGoodsAdapter.expressionOnCreateViewHolder = { viewGroup, viewType ->
             ItemProductHorizontalBinding.inflate(
                 LayoutInflater.from(viewGroup.context),
                 viewGroup,
