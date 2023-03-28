@@ -30,14 +30,21 @@ interface DashboardRepository {
 
     suspend fun getProduct(requestData: ProductsRequest): DataWrapper<Response<List<ProductModel>>>
 
-    suspend fun createOrder(requestData: CreateOrder): DataWrapper<Response<Void>>
+    suspend fun createOrder(requestData: CreateOrder): DataWrapper<Response<Any>>
 
 
     suspend fun getCart(): DataWrapper<Response<CartResponse>>
 
-    suspend fun createCart(requestData: CreateCart): DataWrapper<Response<Void>>
+    suspend fun createCart(requestData: CreateCart): DataWrapper<Response<Any>>
 
-    suspend fun addToCart(requestData: CartRequest): DataWrapper<Response<Void>>
+    suspend fun addToCart(requestData: CartRequest): DataWrapper<Response<Any>>
+
+    suspend fun getWishList(): DataWrapper<Response<WishListResponse>>
+
+
+    suspend fun addProductToWishList(requestData: WishListRequest): DataWrapper<Response<Any>>
+
+    suspend fun deleteProductFromWishList(requestData: WishListRequest): DataWrapper<Response<Any>>
 
 }
 
@@ -61,7 +68,7 @@ class DashboardRepositoryImpl @Inject constructor(
 
     override suspend fun getProductsByCategoryId(requestData: ProductsRequest): DataWrapper<Response<ProductsContent>> {
         return launchApiCall {
-            services.getProductsByCategoryId(perPage = requestData.perPage!!, startPage = requestData.startPage!!, categories = requestData.categories!!)
+            services.getProductsByCategoryId(perPage = requestData.perPage!!, startPage = requestData.startPage!!, categories = requestData.categories)
         }
     }
 
@@ -77,7 +84,7 @@ class DashboardRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun createOrder(requestData: CreateOrder): DataWrapper<Response<Void>> {
+    override suspend fun createOrder(requestData: CreateOrder): DataWrapper<Response<Any>> {
         return launchApiCall {
             services.createOrder(requestData)
         }
@@ -89,15 +96,33 @@ class DashboardRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun createCart(requestData: CreateCart): DataWrapper<Response<Void>> {
+    override suspend fun createCart(requestData: CreateCart): DataWrapper<Response<Any>> {
         return launchApiCall {
             services.createCart(requestData)
         }
     }
 
-    override suspend fun addToCart(requestData: CartRequest): DataWrapper<Response<Void>> {
+    override suspend fun addToCart(requestData: CartRequest): DataWrapper<Response<Any>> {
         return launchApiCall {
             services.addToCart(requestData.productId!!)
+        }
+    }
+
+    override suspend fun getWishList(): DataWrapper<Response<WishListResponse>> {
+        return launchApiCall {
+            services.getWishList()
+        }
+    }
+
+    override suspend fun addProductToWishList(requestData: WishListRequest): DataWrapper<Response<Any>> {
+        return launchApiCall {
+            services.addProductToWishList(requestData.productId!!)
+        }
+    }
+
+    override suspend fun deleteProductFromWishList(requestData: WishListRequest): DataWrapper<Response<Any>> {
+        return launchApiCall {
+            services.deleteProductFromWishList(requestData.productId!!)
         }
     }
 

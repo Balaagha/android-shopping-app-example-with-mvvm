@@ -2,14 +2,17 @@ package com.example.androidmvvmcleanarchitectureexample.ui.fragments.product
 
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidmvvmcleanarchitectureexample.R
 import com.example.androidmvvmcleanarchitectureexample.databinding.*
+import com.example.androidmvvmcleanarchitectureexample.ui.fragments.dashboard.DashboardFragmentDirections
 import com.example.common.adapters.genericadapter.GenericAdapter
 import com.example.core.view.BaseMvvmFragment
 import com.example.data.features.dashboard.models.*
@@ -70,6 +73,15 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
 
         binding.btnAddToCart.setOnClickListener { addToCart() }
 
+        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+
+
+        binding.seeAll.setOnClickListener {  findNavController().navigate(
+            ProductFragmentDirections.actionProductFragmentToProductsFragment(
+                null
+            )
+        ) }
+
         viewModel.getProductResult().observe(viewLifecycleOwner) {
             val filteredList = it.subList(0,9)
             initImageRv(filteredList)
@@ -96,7 +108,20 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
         }
 
         viewModel.getAddToCartResult().observe(viewLifecycleOwner) {
+            Log.d("TAG", "onViewCreatedCart: ")
             Toast.makeText(requireContext(),"Successful",Toast.LENGTH_SHORT).show()
+        }
+
+        binding.title.text = productModel.name
+        binding.subTitle.text = productModel.description
+
+        binding.productPrice.text = "US $" + productModel.currentPrice.toString()
+
+        if(productModel.previousPrice != null) {
+            binding.disCountText.visibility = View.VISIBLE
+            binding.disCountText.text = "US $" +  productModel.previousPrice.toString()
+        }else {
+            binding.disCountText.visibility = View.GONE
         }
 
     }
@@ -147,7 +172,20 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
         mAdapter.expressionViewHolderBinding = { item, viewType, isAlreadyRendered, viewBinding ->
             val itemView = viewBinding as ItemProductCardBinding
             with(itemView) {
-                val productModel = ItemModel()
+                val productModel = ItemModel(
+                    percent = null,
+                    imageurl = item.imageUrls!![0],
+                    favouriteIconVisibility = true,
+                    favouriteIconSelected = false,
+                    previousPrice = item.previousPrice,
+                    currentPrice = item.currentPrice
+                )
+
+                image.favouriteIconClick = {
+                    viewModel.addProductToWishList(item._id!!)
+                    productModel.favouriteIconSelected = true
+                    image.setViewData(productModel)
+                }
                 if(item.imageUrls!!.isNotEmpty()) {
                     productModel.imageurl = item.imageUrls!![0]
                 }
@@ -186,8 +224,33 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
             { item, viewType, isAlreadyRendered, viewBinding ->
                 val itemView = viewBinding as ItemProductHorizontalBinding
                 with(itemView) {
-                    val productModel = ItemModel(percent = null, imageurl = item.imageUrls!![0])
+                    val productModel = ItemModel(
+                        percent = null,
+                        imageurl = item.imageUrls!![0],
+                        favouriteIconVisibility = true,
+                        favouriteIconSelected = false,
+                        previousPrice = item.previousPrice,
+                        currentPrice = item.currentPrice
+                    )
                     productView.setViewData(productModel)
+                    title.text = item.name
+
+                    productPrice.text = "US $" + item.currentPrice.toString()
+                    subTitle.text = item.description
+
+
+                    productView.favouriteIconClick = {
+                        viewModel.addProductToWishList(item._id!!)
+                        productModel.favouriteIconSelected = true
+                        productView.setViewData(productModel)
+                    }
+
+                    if(item.previousPrice != null) {
+                        disCountText.visibility = View.VISIBLE
+                        disCountText.text = "US $" +  item.previousPrice.toString()
+                    }else {
+                        disCountText.visibility = View.GONE
+                    }
                     root.setOnClickListener {
 
                     }

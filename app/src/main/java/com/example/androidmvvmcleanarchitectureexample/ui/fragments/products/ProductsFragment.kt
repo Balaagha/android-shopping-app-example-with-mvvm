@@ -1,6 +1,7 @@
 package com.example.androidmvvmcleanarchitectureexample.ui.fragments.products
 
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import androidx.navigation.fragment.findNavController
@@ -17,7 +18,7 @@ import com.example.common.adapters.genericadapter.PaginationScrollListener
 import com.example.core.view.BaseMvvmFragment
 import com.example.data.features.dashboard.models.ProductModel
 import com.example.uitoolkit.custom.models.ItemModel
-import com.example.uitoolkit.utils.DelayedOnQueryTextListener
+import com.example.uitoolkit.utils.ItemDecoration
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,12 +47,20 @@ class ProductsFragment : BaseMvvmFragment<FragmentProductsBinding, ProductsViewM
 
     private lateinit var gridLayoutManager: GridLayoutManager
 
+    private var itemDecoration = ItemDecoration(
+        topSpace = 0,
+        bottomSpace = 8,
+        rightSpace = 0,
+        leftSpace = 0
+    )
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         manager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         gridLayoutManager = GridLayoutManager(requireContext(), 2)
         id = args.id
-        viewModel.getProducts(id!!)
+        viewModel.getProducts(id)
     }
 
 
@@ -100,7 +109,7 @@ class ProductsFragment : BaseMvvmFragment<FragmentProductsBinding, ProductsViewM
                 isLoading = true
                 binding.loading.visibility = View.VISIBLE
                 viewModel.page++
-                viewModel.getProducts(id!!)
+                viewModel.getProducts(id)
             }
 
             override fun isLastPage(): Boolean {
@@ -122,18 +131,36 @@ private fun initProductRvVertical() {
         adapter = mAdapter
     }
 
+    binding.recyclerView.addItemDecoration(itemDecoration)
 
     mAdapter.expressionViewHolderBinding = { item, viewType, isAlreadyRendered, viewBinding ->
         val itemView = viewBinding as ItemProductVerticalBinding
         with(itemView) {
-            val productModel = ItemModel()
-            if(item.imageUrls!!.isNotEmpty()) {
-                productModel.imageurl = item.imageUrls!![0]
-            }
+            val productModel = ItemModel(
+                percent = null,
+                imageurl = item.imageUrls!![0],
+                favouriteIconVisibility = false,
+                favouriteIconSelected = false,
+                previousPrice = item.previousPrice,
+                currentPrice = item.currentPrice
+            )
             productView.setViewData(productModel)
+            productView.getPercentText().setTextSize(TypedValue.COMPLEX_UNIT_SP,8F)
+            title.text = item.name
+
+            productPrice.text = "US $" + item.currentPrice.toString()
+            subTitle.text = item.description
+
+            if(item.previousPrice != null) {
+                disCountText.visibility = View.VISIBLE
+                disCountText.text = "US $" +  item.previousPrice.toString()
+            }else {
+                disCountText.visibility = View.GONE
+            }
+            //tvAdd.text = item.name
             root.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putSerializable("product",Gson().toJson(item))
+                bundle.putSerializable("product", Gson().toJson(item))
                 bundle.putString("itemNo",item.itemNo)
                 findNavController().navigate(R.id.action_productsFragment_to_productFragment,bundle)
             }
@@ -159,14 +186,39 @@ private fun initProductRvGrid() {
         adapter = mAdapter
     }
 
+    binding.recyclerView.addItemDecoration(itemDecoration)
+
     mAdapter.expressionViewHolderBinding = { item, viewType, isAlreadyRendered, viewBinding ->
         val itemView = viewBinding as ItemProductHorizontalBinding
+
+
         with(itemView) {
-            val productModel = ItemModel()
-            if(item.imageUrls!!.isNotEmpty()) {
-                productModel.imageurl = item.imageUrls!![0]
-            }
+            val productModel = ItemModel(
+                percent = null,
+                imageurl = item.imageUrls!![0],
+                favouriteIconVisibility = true,
+                favouriteIconSelected = false,
+                previousPrice = item.previousPrice,
+                currentPrice = item.currentPrice
+            )
             productView.setViewData(productModel)
+            title.text = item.name
+            productView.favouriteIconClick = {
+                viewModel.addProductToWishList(item._id!!)
+                productModel.favouriteIconSelected = true
+                productView.setViewData(productModel)
+            }
+
+            productPrice.text = "US $" + item.currentPrice.toString()
+            subTitle.text = item.description
+
+            if(item.previousPrice != null) {
+                disCountText.visibility = View.VISIBLE
+                disCountText.text = "US $" +  item.previousPrice.toString()
+            }else {
+                disCountText.visibility = View.GONE
+            }
+            //tvAdd.text = item.name
             root.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putSerializable("product", Gson().toJson(item))
@@ -174,7 +226,6 @@ private fun initProductRvGrid() {
                 findNavController().navigate(R.id.action_productsFragment_to_productFragment,bundle)
             }
         }
-
 
     }
 

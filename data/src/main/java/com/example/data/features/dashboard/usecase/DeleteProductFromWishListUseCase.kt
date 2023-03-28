@@ -11,12 +11,12 @@ import com.example.data.features.entry.repository.EntryFlowRepository
 import retrofit2.Response
 import javax.inject.Inject
 
-class AddToCartUseCase @Inject constructor(
+class DeleteProductFromWishListUseCase @Inject constructor(
     private val repository: DashboardRepository
-) : BaseUseCaseForNetwork<Any, CartRequest>() {
+) : BaseUseCaseForNetwork<Any, WishListRequest>() {
 
-    override suspend fun run(params: CartRequest): DataWrapper<Response<Any>> {
-        return repository.addToCart(params)
+    override suspend fun run(params: WishListRequest): DataWrapper<Response<Any>> {
+        return repository.deleteProductFromWishList(params)
     }
 
 }

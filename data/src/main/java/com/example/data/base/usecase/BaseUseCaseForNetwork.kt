@@ -1,5 +1,6 @@
 package com.example.data.base.usecase
 
+import android.util.Log
 import com.example.data.R
 import com.example.data.base.models.*
 import com.google.gson.Gson
@@ -23,6 +24,7 @@ abstract class BaseUseCaseForNetwork <ResponseType, in RequestParams> {
                      in 200 .. 299 -> {
                         when (val resultBody = data.value.body()) {
                             null -> {
+                                Log.d("TAG", "parseApiResponse: ")
                                 DataWrapper.Failure(
                                     failureType = FailureType.EMPTY_OR_NULL_RESULT,
                                     failureBehavior = FailureBehavior.SILENT,

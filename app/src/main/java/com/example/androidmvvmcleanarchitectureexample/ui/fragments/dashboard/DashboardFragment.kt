@@ -20,6 +20,7 @@ import com.example.data.features.dashboard.models.ProductModel
 import com.example.uitoolkit.utils.ItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.uitoolkit.custom.models.ItemModel
+import com.google.gson.Gson
 
 @AndroidEntryPoint
 class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardViewModel>(
@@ -27,20 +28,26 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardVi
     DashboardViewModel::class
 ) {
 
-    private var itemDecorationCategoryRv = ItemDecoration(topSpace = 0,
+    private var itemDecorationCategoryRv = ItemDecoration(
+        topSpace = 0,
         bottomSpace = 0,
         rightSpace = 0,
-        leftSpace = 8)
+        leftSpace = 8
+    )
 
-    private var itemDecorationShopCategoryRv = ItemDecoration(topSpace = 0,
-        bottomSpace = 0,
+    private var itemDecorationShopCategoryRv = ItemDecoration(
+        topSpace = 0,
+        bottomSpace = 10,
         rightSpace = 0,
-        leftSpace = 8)
+        leftSpace = 8
+    )
 
-    private var itemDecorationProductRv = ItemDecoration(topSpace = 0,
+    private var itemDecorationProductRv = ItemDecoration(
+        topSpace = 0,
         bottomSpace = 0,
         rightSpace = 0,
-        leftSpace = 16)
+        leftSpace = 16
+    )
 
     private val mCategoriesAdapter by lazy {
         GenericAdapter<CategoryModel>(requireContext())
@@ -68,6 +75,17 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardVi
         }
 
 
+        binding.favouriteIcon.setOnClickListener { findNavController().navigate(R.id.action_dashboardFragment_to_wishListFragment) }
+
+        binding.seeAll.setOnClickListener {
+            findNavController().navigate(
+                DashboardFragmentDirections.actionDashboardFragmentToProductsFragment(
+                    null
+                )
+            )
+        }
+        binding.search.setOnClickListener { findNavController().navigate(R.id.action_dashboardFragment_to_searchFragment) }
+
     }
 
 
@@ -88,21 +106,49 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardVi
             }
         )
 
-        mProductAdapter.expressionViewHolderBinding = { item, viewType, isAlreadyRendered, viewBinding ->
-            val itemView = viewBinding as ItemProductHorizontalBinding
-            with(itemView){
-                val productModel = ItemModel(percent = null, imageurl = item.imageUrls!![0])
-                productView.setViewData(productModel)
-                title.text = item.name
+        mProductAdapter.expressionViewHolderBinding =
+            { item, viewType, isAlreadyRendered, viewBinding ->
+                val itemView = viewBinding as ItemProductHorizontalBinding
+                with(itemView) {
+                    val productModel = ItemModel(
+                        percent = null,
+                        imageurl = item.imageUrls!![0],
+                        favouriteIconVisibility = true,
+                        favouriteIconSelected = false,
+                        previousPrice = item.previousPrice,
+                        currentPrice = item.currentPrice
+                    )
+                    productView.setViewData(productModel)
+                    title.text = item.name
+                    productView.favouriteIconClick = {
+                        viewModel.addProductToWishList(item._id!!)
+                        productModel.favouriteIconSelected = true
+                        productView.setViewData(productModel)
+                    }
 
-                //tvAdd.text = item.name
-                root.setOnClickListener {
+                    productPrice.text = "US $" + item.currentPrice.toString()
+                    subTitle.text = item.description
 
+                    if (item.previousPrice != null) {
+                        disCountText.visibility = View.VISIBLE
+                        disCountText.text = "US $" + item.previousPrice.toString()
+                    } else {
+                        disCountText.visibility = View.GONE
+                    }
+                    //tvAdd.text = item.name
+                    root.setOnClickListener {
+                        val bundle = Bundle()
+                        bundle.putSerializable("product", Gson().toJson(item))
+                        bundle.putString("itemNo", item.itemNo)
+                        findNavController().navigate(
+                            R.id.action_dashboardFragment_to_productFragment,
+                            bundle
+                        )
+                    }
                 }
+
+
             }
-
-
-        }
 
         mProductAdapter.expressionOnCreateViewHolder = { viewGroup, viewType ->
             ItemProductHorizontalBinding.inflate(
@@ -130,17 +176,22 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardVi
             }
         )
 
-        mCategoriesAdapter.expressionViewHolderBinding = { item, viewType, isAlreadyRendered, viewBinding ->
-            val itemView = viewBinding as ItemCategoryBinding
-            with(itemView){
-                title.text = item.name
-                root.setOnClickListener {
-                    findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToProductsFragment(item.name!!))
+        mCategoriesAdapter.expressionViewHolderBinding =
+            { item, viewType, isAlreadyRendered, viewBinding ->
+                val itemView = viewBinding as ItemCategoryBinding
+                with(itemView) {
+                    title.text = item.name
+                    root.setOnClickListener {
+                        findNavController().navigate(
+                            DashboardFragmentDirections.actionDashboardFragmentToProductsFragment(
+                                item.name!!
+                            )
+                        )
+                    }
                 }
+
+
             }
-
-
-        }
 
         mCategoriesAdapter.expressionOnCreateViewHolder = { viewGroup, viewType ->
             ItemCategoryBinding.inflate(
@@ -154,7 +205,7 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardVi
     }
 
     private fun initShopCategoriesRv(categoryList: List<CategoryModel>) {
-        val manager = GridLayoutManager(requireContext(),4)
+        val manager = GridLayoutManager(requireContext(), 4)
         with(binding.shopCategoryRv) {
             layoutManager = manager
             adapter = mShopCategoriesAdapter
@@ -169,21 +220,26 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardVi
             }
         )
 
-        mShopCategoriesAdapter.expressionViewHolderBinding = { item, viewType, isAlreadyRendered, viewBinding ->
-            val itemView = viewBinding as ItemShopCategoryBinding
-            with(itemView){
-                name.text = item.name
-                Glide.with(requireActivity())
-                    .load(item.imgUrl)
-                    .into(image)
-                root.setOnClickListener {
-                    findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToProductsFragment(item.name!!))
+        mShopCategoriesAdapter.expressionViewHolderBinding =
+            { item, viewType, isAlreadyRendered, viewBinding ->
+                val itemView = viewBinding as ItemShopCategoryBinding
+                with(itemView) {
+                    name.text = item.name
+                    Glide.with(requireActivity())
+                        .load(item.imgUrl)
+                        .into(image)
+                    root.setOnClickListener {
+                        findNavController().navigate(
+                            DashboardFragmentDirections.actionDashboardFragmentToProductsFragment(
+                                item.name!!
+                            )
+                        )
 
+                    }
                 }
+
+
             }
-
-
-        }
 
         mShopCategoriesAdapter.expressionOnCreateViewHolder = { viewGroup, viewType ->
             ItemShopCategoryBinding.inflate(

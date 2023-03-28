@@ -20,14 +20,30 @@
 
             <argument
                 android:name="id"
-                android:defaultValue=""
-                app:argType="string" />
+                app:argType="string"
+                app:nullable="true"/>
 
         </action>
 
         <action
             android:id="@+id/action_dashboardFragment_to_searchFragment"
             app:destination="@id/searchFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_dashboardFragment_to_wishListFragment"
+            app:destination="@id/wishListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_dashboardFragment_to_productFragment"
+            app:destination="@id/productFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -42,8 +58,8 @@
 
         <argument
             android:name="id"
-            android:defaultValue=""
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
 
         <action
             android:id="@+id/action_productsFragment_to_productFragment"
@@ -74,6 +90,22 @@
             android:defaultValue=""
             app:argType="string" />
 
+
+        <action
+            android:id="@+id/action_productFragment_to_productsFragment"
+            app:destination="@id/productsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" >
+
+            <argument
+                android:name="id"
+                app:argType="string"
+                app:nullable="true"/>
+
+        </action>
+
         <!--        <action-->
         <!--            android:id="@+id/action_splashFragment_to_entryFragment"-->
         <!--            app:enterAnim="@anim/slide_in_right"-->
@@ -89,6 +121,15 @@
         android:id="@+id/searchFragment"
         android:name="com.example.androidmvvmcleanarchitectureexample.ui.fragments.search.SearchFragment"
         android:label="searchFragment">
+
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/wishListFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.fragments.wishList.WishListFragment"
+        android:label="wishListFragment">
 
 
 

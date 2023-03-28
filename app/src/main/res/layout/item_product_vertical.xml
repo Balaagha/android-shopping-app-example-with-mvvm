@@ -37,13 +37,15 @@
                 app:text_color="@color/colorPrimaryDark"
                 android:textSize="16sp"/>
 
-            <com.example.uitoolkit.custom.CustomMaterialTextView
+            <TextView
                 android:id="@+id/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:text_appearance="@style/RegularNunitoBlack"
-                app:text="Iphone 13 pro max"
-                app:text_color="@color/colorPrimaryDark"
+                android:ellipsize="end"
+                android:maxLines="1"
+                style="@style/RegularNunitoBlack"
+                android:text="Iphone 13 pro max"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp"/>
 
 
@@ -69,6 +71,7 @@
                     android:layout_marginStart="8dp"
                     app:text_appearance="@style/RegularNunitoBlack"
                     app:text="Iphone 13 pro max"
+                    android:background="@drawable/strike"
                     app:text_color="@color/colorPrimaryDark"
                     android:textSize="14sp"/>
 

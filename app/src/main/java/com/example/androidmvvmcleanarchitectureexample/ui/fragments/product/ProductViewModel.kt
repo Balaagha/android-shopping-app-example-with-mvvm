@@ -1,6 +1,7 @@
 package com.example.androidmvvmcleanarchitectureexample.ui.fragments.product
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.example.core.viewmodel.BaseViewModel
@@ -18,6 +19,7 @@ class ProductViewModel @Inject constructor(
     private val getCartUseCase: GetCartUseCase,
     private val createCartUseCase: CreateCartUseCase,
     private val addToCartUseCase: AddToCartUseCase,
+    private val addProductToWishListUseCase: AddProductToWishListUseCase,
     savedState: SavedStateHandle,
     private val application: Application
 ) : BaseViewModel(savedState, application) {
@@ -127,4 +129,15 @@ class ProductViewModel @Inject constructor(
         )
     }
 
+
+    fun addProductToWishList(id: String) {
+        isShowBaseLoadingIndicator = false
+        val wishListRequest = WishListRequest(productId = id)
+        addProductToWishListUseCase.execute(
+            params = wishListRequest,
+            successOperation = {
+                //productsResult.postValue(it.invoke())
+            }
+        )
+    }
 }

@@ -22,7 +22,7 @@ interface DashboardServices {
 
     @GET("api/products/filter")
     suspend fun getProductsByCategoryId(
-        @Query("categories") categories: String,
+        @Query("categories") categories: String? = null,
         @Query("perPage") perPage: Int,
         @Query("startPage") startPage: Int
     ): Response<ProductsContent>
@@ -42,7 +42,7 @@ interface DashboardServices {
     @POST("api/orders")
     suspend fun createOrder(
         @Body request: CreateOrder
-    ): Response<Void>
+    ): Response<Any>
 
     @GET("api/cart")
     suspend fun getCart(): Response<CartResponse>
@@ -50,11 +50,29 @@ interface DashboardServices {
     @POST("api/cart")
     suspend fun createCart(
         @Body request: CreateCart
-    ): Response<Void>
+    ): Response<Any>
 
     @PUT("api/cart")
     suspend fun addToCart(
         @Query("productId") productId: String
-    ): Response<Void>
+    ): Response<Any>
+
+    @GET("api/wishlist")
+    suspend fun getWishList(): Response<WishListResponse>
+
+    @PUT("api/wishlist")
+    suspend fun addProductToWishList(
+        @Query("productId") productId: String
+    ): Response<Any>
+
+    @DELETE("api/wishlist")
+    suspend fun deleteProductFromWishList(
+        @Query("productId") productId: String
+    ): Response<Any>
+
+    @POST("api/wishlist")
+    suspend fun createWishList(
+        @Body request: CreateCart
+    ): Response<Any>
 
 }
