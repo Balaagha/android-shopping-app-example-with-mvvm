@@ -6,7 +6,8 @@ data class ProductModel(
     val quantity: String? = null,
     val _id: String? = null,
     val name: String? = null,
+    val itemNo: String? = null,
     val currentPrice: Double? = null,
     val categories: String? = null,
-
-)
+    val date: String? = null,
+): java.io.Serializable

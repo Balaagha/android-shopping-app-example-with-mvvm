@@ -1,25 +1,37 @@
 package com.example.androidmvvmcleanarchitectureexample.ui.fragments.product
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidmvvmcleanarchitectureexample.R
 import com.example.androidmvvmcleanarchitectureexample.databinding.*
-import com.example.androidmvvmcleanarchitectureexample.ui.fragments.dashboard.ProductViewModel
 import com.example.common.adapters.genericadapter.GenericAdapter
 import com.example.core.view.BaseMvvmFragment
-import com.example.data.features.dashboard.models.CategoryModel
-import com.example.data.features.dashboard.models.ProductModel
+import com.example.data.features.dashboard.models.*
+import com.example.data.features.entry.model.CustomerResponseModel
+import com.example.data.helper.manager.UserDataManager
+import com.example.uitoolkit.custom.models.ItemModel
 import com.example.uitoolkit.utils.ItemDecoration
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewModel>(
     R.layout.fragment_product,
     ProductViewModel::class
 ) {
+
+    private var itemNo: String? = null
+
+    private lateinit var productModel: ProductModel
+
+    private val gson = Gson()
 
     private var itemDecorationCategoryRv = ItemDecoration(
         topSpace = 0,
@@ -28,38 +40,92 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
         leftSpace = 8
     )
 
+    lateinit var customer: CustomerResponseModel
+
 
     private val mAdapter by lazy {
         GenericAdapter<ProductModel>(requireContext())
     }
 
-    private val mCategoriesAdapter by lazy {
+    private val mSimilarGoodsAdapter by lazy {
         GenericAdapter<ProductModel>(requireContext())
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        itemNo = requireArguments().getString("itemNo")
+        productModel = gson.fromJson(
+            requireArguments().getSerializable("product") as String,
+            ProductModel::class.java
+        )
+        viewModel.getProduct(itemNo!!)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val product = ProductModel(name = "Nuraddin")
-        val productList = ArrayList<ProductModel>()
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
-        productList.add(product)
+
+        binding.btnBuyNow.setOnClickListener { createOrder() }
+
+        binding.btnAddToCart.setOnClickListener { addToCart() }
+
+        viewModel.getProductResult().observe(viewLifecycleOwner) {
+            val filteredList = it.subList(0,9)
+            initImageRv(filteredList)
+            binding.indicators.attachTo(binding.imageRv, true)
+        }
 
 
-        initImageRv(productList)
-        initSimilarGoodsRv(productList)
+        viewModel.getProductsResult().observe(viewLifecycleOwner) {
+            initSimilarGoodsRv(it)
+        }
+
+        viewModel.getOrderResult().observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(),"Order created",Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.getCartResult().observe(viewLifecycleOwner) {
+            Log.d("TAG", "onViewCreated: ")
+            customer = it.customerId
+        }
+
+        viewModel.getCartListFailResult().observe(viewLifecycleOwner) {
+            val request = CreateCart(product = productModel._id,cartQuantity = 1)
+            viewModel.createCart(request)
+        }
+
+        viewModel.getAddToCartResult().observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(),"Successful",Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    private fun createOrder() {
+        val productList = ArrayList<OrderContent>()
+        val orderContent = OrderContent(
+            cartQuantity = 1,
+            id = productModel._id,
+            product = productModel
+        )
+        productList.add(orderContent)
+        val createOrder = CreateOrder(
+            letterSubject = "Thank you for order! You are welcome!",
+            letterHtml = "Thank you for order! You are welcome!",
+            shipping = "Kiev 50UAH",
+            paymentInfo = "Credit card",
+            status = "not shipped",
+            email = customer.email,
+            mobile = customer.telephone,
+            products = productList
+        )
+        viewModel.createOrder(createOrder)
+    }
 
 
-        binding.indicators.attachTo(binding.imageRv, true)
-
-
+    private fun addToCart() {
+        val cartRequest = CartRequest(productId = productModel._id)
+        viewModel.addToCart(cartRequest)
     }
 
 
@@ -81,13 +147,12 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
         mAdapter.expressionViewHolderBinding = { item, viewType, isAlreadyRendered, viewBinding ->
             val itemView = viewBinding as ItemProductCardBinding
             with(itemView) {
-                //tvAdd.text = item.name
-                root.setOnClickListener {
-
+                val productModel = ItemModel()
+                if(item.imageUrls!!.isNotEmpty()) {
+                    productModel.imageurl = item.imageUrls!![0]
                 }
+                image.setViewData(productModel)
             }
-
-
         }
 
         mAdapter.expressionOnCreateViewHolder = { viewGroup, viewType ->
@@ -106,22 +171,23 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
         val manager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         with(binding.similarGoodsRv) {
             layoutManager = manager
-            adapter = mCategoriesAdapter
+            adapter = mSimilarGoodsAdapter
         }
         binding.similarGoodsRv.addItemDecoration(itemDecorationCategoryRv)
 
-        mCategoriesAdapter.setData(
+        mSimilarGoodsAdapter.setData(
             list = categoryList,
             notifyFunc = { mAdapter ->
                 mAdapter.notifyDataSetChanged()
             }
         )
 
-        mCategoriesAdapter.expressionViewHolderBinding =
+        mSimilarGoodsAdapter.expressionViewHolderBinding =
             { item, viewType, isAlreadyRendered, viewBinding ->
                 val itemView = viewBinding as ItemProductHorizontalBinding
                 with(itemView) {
-                    //tvAdd.text = item.name
+                    val productModel = ItemModel(percent = null, imageurl = item.imageUrls!![0])
+                    productView.setViewData(productModel)
                     root.setOnClickListener {
 
                     }
@@ -130,7 +196,7 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
 
             }
 
-        mCategoriesAdapter.expressionOnCreateViewHolder = { viewGroup, viewType ->
+        mSimilarGoodsAdapter.expressionOnCreateViewHolder = { viewGroup, viewType ->
             ItemProductHorizontalBinding.inflate(
                 LayoutInflater.from(viewGroup.context),
                 viewGroup,

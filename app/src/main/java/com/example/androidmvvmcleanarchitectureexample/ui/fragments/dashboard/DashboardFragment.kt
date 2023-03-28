@@ -3,6 +3,7 @@ package com.example.androidmvvmcleanarchitectureexample.ui.fragments.dashboard
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ import com.example.data.features.dashboard.models.CategoryModel
 import com.example.data.features.dashboard.models.ProductModel
 import com.example.uitoolkit.utils.ItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import com.example.uitoolkit.custom.models.ProductViewModel
+import com.example.uitoolkit.custom.models.ItemModel
 
 @AndroidEntryPoint
 class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardViewModel>(
@@ -90,8 +91,10 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardVi
         mProductAdapter.expressionViewHolderBinding = { item, viewType, isAlreadyRendered, viewBinding ->
             val itemView = viewBinding as ItemProductHorizontalBinding
             with(itemView){
-                val productModel = ProductViewModel(percent = null, imageurl = item.imageUrls!![0],)
+                val productModel = ItemModel(percent = null, imageurl = item.imageUrls!![0])
                 productView.setViewData(productModel)
+                title.text = item.name
+
                 //tvAdd.text = item.name
                 root.setOnClickListener {
 
@@ -132,7 +135,7 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardVi
             with(itemView){
                 title.text = item.name
                 root.setOnClickListener {
-
+                    findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToProductsFragment(item.name!!))
                 }
             }
 
@@ -174,6 +177,7 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardVi
                     .load(item.imgUrl)
                     .into(image)
                 root.setOnClickListener {
+                    findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToProductsFragment(item.name!!))
 
                 }
             }

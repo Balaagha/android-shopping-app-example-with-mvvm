@@ -21,6 +21,7 @@ class UserDataManagerImpl @Inject constructor(
     private var userEmail: String? = null
     private var userPassword: String? = null
     private var isUserLogin: Boolean = false
+    private var userPhoneNumber: String? = "+380935555555"
 
     override fun saveApiToken(apiTokenValue: String?, isEncrypt: Boolean) {
         if(isUserLogin.not()){
@@ -48,6 +49,10 @@ class UserDataManagerImpl @Inject constructor(
 
     override fun checkUserIsLogin(): Boolean {
         return isUserLogin
+    }
+
+    override fun getPhoneNumber(): String? {
+        return userPhoneNumber
     }
 
     override fun saveUserEmailAndPassword(userNameValue: String?, passwordValue: String?, isEncrypt: Boolean){

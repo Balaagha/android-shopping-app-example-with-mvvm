@@ -1,6 +1,6 @@
 package com.example.uitoolkit.custom.models
 
-data class ProductViewModel(
+data class ItemModel(
     var percent: String? = null,
     var percentTextVisibility: Boolean = false,
     var favouriteIconVisibility: Boolean = false,
