@@ -1,8 +1,10 @@
 package com.example.androidmvvmcleanarchitectureexample.ui.fragments.product
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -10,19 +12,26 @@ import com.example.androidmvvmcleanarchitectureexample.R
 import com.example.androidmvvmcleanarchitectureexample.databinding.*
 import com.example.common.adapters.genericadapter.GenericAdapter
 import com.example.core.view.BaseMvvmFragment
-import com.example.data.features.dashboard.models.ProductModel
+import com.example.data.features.dashboard.models.*
+import com.example.data.features.entry.model.CustomerResponseModel
+import com.example.data.helper.manager.UserDataManager
 import com.example.uitoolkit.custom.models.ItemModel
 import com.example.uitoolkit.utils.ItemDecoration
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewModel>(
     R.layout.fragment_product,
     ProductViewModel::class
 ) {
-    private val args: ProductFragmentArgs by navArgs()
 
     private var itemNo: String? = null
+
+    private lateinit var productModel: ProductModel
+
+    private val gson = Gson()
 
     private var itemDecorationCategoryRv = ItemDecoration(
         topSpace = 0,
@@ -30,6 +39,8 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
         rightSpace = 0,
         leftSpace = 8
     )
+
+    lateinit var customer: CustomerResponseModel
 
 
     private val mAdapter by lazy {
@@ -43,7 +54,11 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        itemNo = args.itemNo
+        itemNo = requireArguments().getString("itemNo")
+        productModel = gson.fromJson(
+            requireArguments().getSerializable("product") as String,
+            ProductModel::class.java
+        )
         viewModel.getProduct(itemNo!!)
     }
 
@@ -51,8 +66,9 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnBuyNow.setOnClickListener { createOrder() }
 
-        //initSimilarGoodsRv(productList)
+        binding.btnAddToCart.setOnClickListener { addToCart() }
 
         viewModel.getProductResult().observe(viewLifecycleOwner) {
             val filteredList = it.subList(0,9)
@@ -65,6 +81,51 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
             initSimilarGoodsRv(it)
         }
 
+        viewModel.getOrderResult().observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(),"Order created",Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.getCartResult().observe(viewLifecycleOwner) {
+            Log.d("TAG", "onViewCreated: ")
+            customer = it.customerId
+        }
+
+        viewModel.getCartListFailResult().observe(viewLifecycleOwner) {
+            val request = CreateCart(product = productModel._id,cartQuantity = 1)
+            viewModel.createCart(request)
+        }
+
+        viewModel.getAddToCartResult().observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(),"Successful",Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    private fun createOrder() {
+        val productList = ArrayList<OrderContent>()
+        val orderContent = OrderContent(
+            cartQuantity = 1,
+            id = productModel._id,
+            product = productModel
+        )
+        productList.add(orderContent)
+        val createOrder = CreateOrder(
+            letterSubject = "Thank you for order! You are welcome!",
+            letterHtml = "Thank you for order! You are welcome!",
+            shipping = "Kiev 50UAH",
+            paymentInfo = "Credit card",
+            status = "not shipped",
+            email = customer.email,
+            mobile = customer.telephone,
+            products = productList
+        )
+        viewModel.createOrder(createOrder)
+    }
+
+
+    private fun addToCart() {
+        val cartRequest = CartRequest(productId = productModel._id)
+        viewModel.addToCart(cartRequest)
     }
 
 

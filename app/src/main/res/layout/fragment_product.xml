@@ -104,7 +104,7 @@
             android:text="Buy now" />
 
         <Button
-            android:id="@+id/btnContinue"
+            android:id="@+id/btnAddToCart"
             style="@style/Controls.Buttons.Default"
             android:background="@drawable/shape_search"
             android:layout_marginTop="16dp"

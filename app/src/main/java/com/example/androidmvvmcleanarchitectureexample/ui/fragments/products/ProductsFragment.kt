@@ -18,6 +18,7 @@ import com.example.core.view.BaseMvvmFragment
 import com.example.data.features.dashboard.models.ProductModel
 import com.example.uitoolkit.custom.models.ItemModel
 import com.example.uitoolkit.utils.DelayedOnQueryTextListener
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -131,7 +132,10 @@ private fun initProductRvVertical() {
             }
             productView.setViewData(productModel)
             root.setOnClickListener {
-                findNavController().navigate(ProductsFragmentDirections.actionProductsFragmentToProductFragment(item.itemNo!!))
+                val bundle = Bundle()
+                bundle.putSerializable("product",Gson().toJson(item))
+                bundle.putString("itemNo",item.itemNo)
+                findNavController().navigate(R.id.action_productsFragment_to_productFragment,bundle)
             }
         }
 
@@ -164,8 +168,10 @@ private fun initProductRvGrid() {
             }
             productView.setViewData(productModel)
             root.setOnClickListener {
-                findNavController().navigate(ProductsFragmentDirections.actionProductsFragmentToProductFragment(item.itemNo!!))
-
+                val bundle = Bundle()
+                bundle.putSerializable("product", Gson().toJson(item))
+                bundle.putString("itemNo",item.itemNo)
+                findNavController().navigate(R.id.action_productsFragment_to_productFragment,bundle)
             }
         }
 

@@ -30,6 +30,15 @@ interface DashboardRepository {
 
     suspend fun getProduct(requestData: ProductsRequest): DataWrapper<Response<List<ProductModel>>>
 
+    suspend fun createOrder(requestData: CreateOrder): DataWrapper<Response<Void>>
+
+
+    suspend fun getCart(): DataWrapper<Response<CartResponse>>
+
+    suspend fun createCart(requestData: CreateCart): DataWrapper<Response<Void>>
+
+    suspend fun addToCart(requestData: CartRequest): DataWrapper<Response<Void>>
+
 }
 
 @Singleton
@@ -65,6 +74,30 @@ class DashboardRepositoryImpl @Inject constructor(
     override suspend fun getProduct(requestData: ProductsRequest): DataWrapper<Response<List<ProductModel>>> {
         return launchApiCall {
             services.getProduct(requestData.itemNo!!)
+        }
+    }
+
+    override suspend fun createOrder(requestData: CreateOrder): DataWrapper<Response<Void>> {
+        return launchApiCall {
+            services.createOrder(requestData)
+        }
+    }
+
+    override suspend fun getCart(): DataWrapper<Response<CartResponse>> {
+        return launchApiCall {
+            services.getCart()
+        }
+    }
+
+    override suspend fun createCart(requestData: CreateCart): DataWrapper<Response<Void>> {
+        return launchApiCall {
+            services.createCart(requestData)
+        }
+    }
+
+    override suspend fun addToCart(requestData: CartRequest): DataWrapper<Response<Void>> {
+        return launchApiCall {
+            services.addToCart(requestData.productId!!)
         }
     }
 

@@ -53,11 +53,6 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" >
 
-            <argument
-                android:name="itemNo"
-                android:defaultValue=""
-                app:argType="string" />
-
         </action>
 
         <action

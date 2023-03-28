@@ -8,4 +8,5 @@ interface UserDataManager  {
     fun setApiToken(): Boolean
     fun clearUserData()
     fun checkUserIsLogin(): Boolean
+    fun getPhoneNumber(): String?
 }

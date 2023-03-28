@@ -9,5 +9,5 @@ data class ProductModel(
     val itemNo: String? = null,
     val currentPrice: Double? = null,
     val categories: String? = null,
-
-)
+    val date: String? = null,
+): java.io.Serializable
