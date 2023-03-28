@@ -17,19 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidmvvmcleanarchitectureexample.R
 import com.example.androidmvvmcleanarchitectureexample.databinding.FragmentOrderBinding
-import com.example.androidmvvmcleanarchitectureexample.databinding.GenericRvAddProductCategoryItemBinding
 import com.example.androidmvvmcleanarchitectureexample.databinding.GenericRvOrderItemBinding
-import com.example.androidmvvmcleanarchitectureexample.ui.orderflow.model.OrderItemUiModel
+import com.example.androidmvvmcleanarchitectureexample.ui.orderflow.model.ProductItemUiModel
 import com.example.androidmvvmcleanarchitectureexample.ui.orderflow.viewmodel.OrderViewModel
-import com.example.androidmvvmcleanarchitectureexample.ui.profileflow.viewmodel.ProfileViewModel
-import com.example.androidmvvmcleanarchitectureexample.ui.profileflow.viewmodel.ProfileViewModel.Companion.GO_TO_PROFILE_SCREEN
 import com.example.common.adapters.genericadapter.GenericAdapter
 import com.example.core.view.BaseMvvmFragment
-import com.example.data.features.dashboard.models.CategoryModel
 import com.example.uitoolkit.custom.models.ItemModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_add_product.*
-import kotlinx.android.synthetic.main.item_product_card.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -43,13 +37,13 @@ class OrderFragment :
     }
 
     private val mCanceledAdapter by lazy {
-        GenericAdapter<OrderItemUiModel>(requireContext())
+        GenericAdapter<ProductItemUiModel>(requireContext())
     }
     private val mOngoingAdapter by lazy {
-        GenericAdapter<OrderItemUiModel>(requireContext())
+        GenericAdapter<ProductItemUiModel>(requireContext())
     }
     private val mCompletedAdapter by lazy {
-        GenericAdapter<OrderItemUiModel>(requireContext())
+        GenericAdapter<ProductItemUiModel>(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

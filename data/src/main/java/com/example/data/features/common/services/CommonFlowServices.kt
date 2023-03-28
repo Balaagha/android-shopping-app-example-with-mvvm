@@ -20,6 +20,12 @@ interface CommonFlowServices {
         @Body requestData: AddProductRequestModel
     ): Response<AddProductResponseModel>
 
+    @PUT("api/products/{id}")
+    suspend fun updateProducts(
+        @Path(value = "id", encoded = true) id: String?,
+        @Body requestData: AddProductRequestModel
+    ): Response<AddProductResponseModel>
+
     @GET("api/orders")
     suspend fun getOrders(
     ): Response<GetOrdersResponseModel>

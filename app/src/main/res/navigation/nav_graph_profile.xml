@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_profileEntryFragment_to_addProductFragment"
             app:destination="@id/addProductFragment" />
+        <action
+            android:id="@+id/action_profileEntryFragment_to_myProductListFragment"
+            app:destination="@id/myProductListFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileUpdateFragment"
@@ -28,4 +31,9 @@
         android:name="com.example.androidmvvmcleanarchitectureexample.ui.profileflow.view.AddProductFragment"
         android:label="AddProductFragment"
         tools:layout="@layout/fragment_add_product"/>
+    <fragment
+        android:id="@+id/myProductListFragment"
+        android:name="com.example.androidmvvmcleanarchitectureexample.ui.profileflow.view.MyProductListFragment"
+        android:label="MyProductListFragment"
+        tools:layout="@layout/fragment_my_product_list"/>
 </navigation>

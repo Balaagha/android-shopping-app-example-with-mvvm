@@ -20,7 +20,8 @@ class CustomerModelUiData(
         userName = userName.get(),
         firstName = firstName.get(),
         lastName = lastName.get(),
-        password = password.get()
+        password = password.get(),
+        isAdmin = email.get()?.contains("@shopping.com")
     )
 
     fun toCustomerRequestModelForUpdateCustomer(): CustomerRequestModel = CustomerRequestModel(

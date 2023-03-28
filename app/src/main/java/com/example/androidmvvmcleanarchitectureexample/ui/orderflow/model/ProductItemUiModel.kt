@@ -1,6 +1,6 @@
 package com.example.androidmvvmcleanarchitectureexample.ui.orderflow.model
 
-data class OrderItemUiModel(
+data class ProductItemUiModel(
     val imageUrl: String?,
     val title: String?,
     val subTitle: String?,

@@ -102,10 +102,16 @@ class ProfileEntryFragment : BaseMvvmFragment<FragmentProfileEntryBinding, Profi
             btnEditProfile.setOnClickListener {
                 findNavController().navigate(R.id.action_profileEntryFragment_to_profileUpdateFragment)
             }
+            btnShowMyProducts.setOnClickListener {
+                viewModel.clearProductList()
+                findNavController().navigate(R.id.action_profileEntryFragment_to_myProductListFragment)
+            }
             btnAddProduct.setOnClickListener {
                 viewModel.clearAddedProductData()
                 findNavController().navigate(R.id.action_profileEntryFragment_to_addProductFragment)
             }
+
+
         }
     }
 

@@ -23,5 +23,8 @@ data class AddProductRequestModel(
     @SerializedName("productUrl")
     val productUrl: String? = null,
     @SerializedName("quantity")
-    val quantity: Int? = null
+    val quantity: Int? = null,
+    @SerializedName("enabled")
+    var enabled: Boolean? = null,
+    var id: String? = null
 )

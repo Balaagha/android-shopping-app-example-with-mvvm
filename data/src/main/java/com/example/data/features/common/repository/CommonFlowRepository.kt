@@ -17,6 +17,7 @@ interface CommonFlowRepository {
 
     suspend fun getSampleData(): DataWrapper<Response<SampleResponseModel>>
     suspend fun addProduct(requestData: AddProductRequestModel): DataWrapper<Response<AddProductResponseModel>>
+    suspend fun updateProduct(requestData: AddProductRequestModel): DataWrapper<Response<AddProductResponseModel>>
     suspend fun getOrders(): DataWrapper<Response<GetOrdersResponseModel>>
 
 }
@@ -41,6 +42,15 @@ class CommonFlowRepositoryImpl @Inject constructor(
         return launchApiCall {
             services.addProducts(
                 requestData = requestData
+            )
+        }
+    }
+
+    override suspend fun updateProduct(requestData: AddProductRequestModel): DataWrapper<Response<AddProductResponseModel>> {
+        return launchApiCall {
+            services.updateProducts(
+                requestData = requestData,
+                id = requestData.id
             )
         }
     }

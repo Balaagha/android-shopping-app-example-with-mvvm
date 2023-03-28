@@ -5,5 +5,4 @@ data class ProductsRequest(
     val startPage: Int? = null,
     var categories: String? = null,
     var itemNo: String? = null
-
 )

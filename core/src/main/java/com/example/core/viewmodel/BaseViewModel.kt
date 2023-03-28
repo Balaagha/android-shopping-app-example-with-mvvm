@@ -70,10 +70,11 @@ open class BaseViewModel(
         failOperation: (suspend (value: DataWrapper<T>) -> Unit)? = null,
         block: ((value: DataWrapper<T>) -> Unit)? = null,
         isDismissHideBaseLoadingIndicator: Boolean = false,
-        isDismissProcessFailureExecution: Boolean = false
+        isDismissProcessFailureExecution: Boolean = false,
+        isShowLoadingDialog: Boolean = true
     ) {
         launchSafe {
-            if (isShowBaseLoadingIndicator) {
+            if (isShowBaseLoadingIndicator && isShowLoadingDialog) {
                 loadingEvent.postValue(true)
             }
             val result = this@execute.invoke(params)
