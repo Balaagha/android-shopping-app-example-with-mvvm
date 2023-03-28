@@ -6,6 +6,7 @@ import com.example.data.base.repository.BaseRepository
 import com.example.data.features.common.model.AddProductRequestModel
 import com.example.data.features.common.model.AddProductResponseModel
 import com.example.data.features.common.model.SampleResponseModel
+import com.example.data.features.common.model.orders.GetOrdersResponseModel
 import com.example.data.features.common.services.CommonFlowServices
 import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.Response
@@ -15,8 +16,8 @@ import javax.inject.Singleton
 interface CommonFlowRepository {
 
     suspend fun getSampleData(): DataWrapper<Response<SampleResponseModel>>
-
     suspend fun addProduct(requestData: AddProductRequestModel): DataWrapper<Response<AddProductResponseModel>>
+    suspend fun getOrders(): DataWrapper<Response<GetOrdersResponseModel>>
 
 }
 
@@ -41,6 +42,12 @@ class CommonFlowRepositoryImpl @Inject constructor(
             services.addProducts(
                 requestData = requestData
             )
+        }
+    }
+
+    override suspend fun getOrders(): DataWrapper<Response<GetOrdersResponseModel>> {
+        return launchApiCall {
+            services.getOrders()
         }
     }
 

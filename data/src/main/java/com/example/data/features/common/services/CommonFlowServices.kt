@@ -3,11 +3,9 @@ package com.example.data.features.common.services
 import com.example.data.features.common.model.AddProductRequestModel
 import com.example.data.features.common.model.AddProductResponseModel
 import com.example.data.features.common.model.SampleResponseModel
+import com.example.data.features.common.model.orders.GetOrdersResponseModel
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.HeaderMap
-import retrofit2.http.POST
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 interface CommonFlowServices {
 
@@ -22,5 +20,8 @@ interface CommonFlowServices {
         @Body requestData: AddProductRequestModel
     ): Response<AddProductResponseModel>
 
+    @GET("api/orders")
+    suspend fun getOrders(
+    ): Response<GetOrdersResponseModel>
 
 }

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp">
+
+            <com.example.uitoolkit.custom.ProductView
+                android:id="@+id/productView"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@color/colorAccentCarroot"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="8dp">
+
+            <com.example.uitoolkit.custom.CustomMaterialTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:text_appearance="@style/SemiBoldNunitoBlack"
+                app:text="Iphone 13 pro max"
+                app:text_color="@color/colorPrimaryDark"
+                android:textSize="16sp"/>
+
+            <com.example.uitoolkit.custom.CustomMaterialTextView
+                android:id="@+id/subTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:text_appearance="@style/ExtraBoldNunitoBlack"
+                app:text="Iphone 13 pro max"
+                app:text_color="@color/colorPrimaryDark"
+                android:textSize="14sp"/>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="6dp"
+                    app:strokeColor="@color/colorAccentCarroot"
+                    app:strokeWidth="1dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <com.example.uitoolkit.custom.CustomMaterialTextView
+                        android:id="@+id/tvStatusTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:text_appearance="@style/MediumNunitoBlack"
+                        app:text="In delivery"
+                        app:text_color="@color/colorAccentCarroot"
+                        android:layout_marginHorizontal="6dp"
+                        android:layout_marginVertical="3dp"
+                        android:textSize="10sp"/>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardBackgroundColor="@color/colorSecondary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <com.example.uitoolkit.custom.CustomMaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:text_appearance="@style/MediumNunitoBlack"
+                        app:text="TrackOrder"
+                        app:text_color="@color/colorTextWhite"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="8dp"
+                        android:textSize="12sp"/>
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
