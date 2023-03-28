@@ -35,14 +35,15 @@
             android:id="@+id/indicators"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:orientation="horizontal"
             app:indicator_animation="@anim/zoom_in"
-            app:indicator_color="#7F97A3"
+            app:indicator_color="@color/colorSecondary"
             app:indicator_size="25"
             app:layout_constraintTop_toBottomOf="@id/imageRv"
             app:number_of_indicators="5"
-            app:selected_color="@color/blue_primary_dark" />
+            app:selected_color="@color/colorAccentCarroot" />
 
 
 
@@ -88,6 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:background="@drawable/strike"
                 app:text_appearance="@style/RegularNunitoBlack"
                 app:text="Iphone 13 pro max"
                 app:text_color="@color/colorPrimaryDark"
@@ -249,6 +251,7 @@
 
 
             <com.example.uitoolkit.custom.CustomMaterialTextView
+                android:id="@+id/seeAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

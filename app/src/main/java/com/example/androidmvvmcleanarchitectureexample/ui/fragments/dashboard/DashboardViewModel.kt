@@ -10,8 +10,11 @@ import com.example.data.base.models.EmptyRequest
 import com.example.data.features.dashboard.models.CategoryModel
 import com.example.data.features.dashboard.models.ProductModel
 import com.example.data.features.dashboard.models.ProductsRequest
+import com.example.data.features.dashboard.models.WishListRequest
+import com.example.data.features.dashboard.usecase.AddProductToWishListUseCase
 import com.example.data.features.dashboard.usecase.GetCategoriesUseCase
 import com.example.data.features.dashboard.usecase.GetProductsUseCase
+import com.example.data.features.dashboard.usecase.GetWishListUseCase
 import com.example.data.features.entry.usecase.CreateAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -20,6 +23,9 @@ import javax.inject.Inject
 class DashboardViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase,
     private val getProductsUseCase: GetProductsUseCase,
+    private val addProductToWishListUseCase: AddProductToWishListUseCase,
+    private val getWishListUseCase: GetWishListUseCase,
+    private val createWishListUseCase: AddProductToWishListUseCase,
     savedState: SavedStateHandle,
     private val application: Application
 ) : BaseViewModel(savedState, application) {
@@ -60,6 +66,28 @@ class DashboardViewModel @Inject constructor(
             params = request,
             successOperation = {
                 productsResult.postValue(it.invoke()?.products)
+            }
+        )
+    }
+
+   fun addProductToWishList(id: String) {
+       isShowBaseLoadingIndicator = false
+        val wishListRequest = WishListRequest(productId = id)
+        addProductToWishListUseCase.execute(
+            params = wishListRequest,
+            successOperation = {
+                //productsResult.postValue(it.invoke())
+            }
+        )
+    }
+
+    private fun getWishList() {
+        getWishListUseCase.execute(
+            params = EmptyRequest,
+            successOperation = {
+                //wishListResult.postValue(it.invoke()!!.products!!)
+            },failOperation = {
+
             }
         )
     }

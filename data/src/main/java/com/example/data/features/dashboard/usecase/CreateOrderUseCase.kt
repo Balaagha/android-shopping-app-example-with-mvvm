@@ -13,9 +13,9 @@ import javax.inject.Inject
 
 class CreateOrderUseCase @Inject constructor(
     private val repository: DashboardRepository
-) : BaseUseCaseForNetwork<Void, CreateOrder>() {
+) : BaseUseCaseForNetwork<Any, CreateOrder>() {
 
-    override suspend fun run(params: CreateOrder): DataWrapper<Response<Void>> {
+    override suspend fun run(params: CreateOrder): DataWrapper<Response<Any>> {
         return repository.createOrder(params)
     }
 

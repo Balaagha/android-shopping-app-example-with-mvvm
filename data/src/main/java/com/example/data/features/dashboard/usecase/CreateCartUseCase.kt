@@ -13,9 +13,9 @@ import javax.inject.Inject
 
 class CreateCartUseCase @Inject constructor(
     private val repository: DashboardRepository
-) : BaseUseCaseForNetwork<Void, CreateCart>() {
+) : BaseUseCaseForNetwork<Any, CreateCart>() {
 
-    override suspend fun run(params: CreateCart): DataWrapper<Response<Void>> {
+    override suspend fun run(params: CreateCart): DataWrapper<Response<Any>> {
         return repository.createCart(params)
     }
 
