@@ -7,6 +7,8 @@ import com.example.core.viewmodel.BaseViewModel
 import com.example.data.features.dashboard.models.ProductModel
 import com.example.data.features.dashboard.models.ProductsRequest
 import com.example.data.features.dashboard.models.SearchRequest
+import com.example.data.features.dashboard.models.WishListRequest
+import com.example.data.features.dashboard.usecase.AddProductToWishListUseCase
 import com.example.data.features.dashboard.usecase.GetProductsUseCase
 import com.example.data.features.dashboard.usecase.SearchProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchProductsUseCase: SearchProductsUseCase,
+    private val addProductToWishListUseCase: AddProductToWishListUseCase,
     savedState: SavedStateHandle,
     private val application: Application
 ) : BaseViewModel(savedState, application) {
@@ -33,6 +36,17 @@ class SearchViewModel @Inject constructor(
             params = request,
             successOperation = {
                 searchResult.postValue(it.invoke())
+            }
+        )
+    }
+
+    fun addProductToWishList(id: String) {
+        isShowBaseLoadingIndicator = false
+        val wishListRequest = WishListRequest(productId = id)
+        addProductToWishListUseCase.execute(
+            params = wishListRequest,
+            successOperation = {
+                //productsResult.postValue(it.invoke())
             }
         )
     }

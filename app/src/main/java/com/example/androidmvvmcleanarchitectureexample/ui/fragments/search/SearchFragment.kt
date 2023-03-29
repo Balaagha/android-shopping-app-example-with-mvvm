@@ -50,6 +50,9 @@ class SearchFragment : BaseMvvmFragment<FragmentSearchBinding, SearchViewModel>(
     private fun initProductRvGrid() {
         gridLayoutManager = GridLayoutManager(requireContext(), 2)
         mAdapter = SearchAdapter(requireContext())
+        mAdapter.favouriteIconClick = {
+            viewModel.addProductToWishList(it)
+        }
         binding.recyclerView.layoutManager = gridLayoutManager
         binding.recyclerView.adapter = mAdapter
     }
