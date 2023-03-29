@@ -69,7 +69,10 @@ class WishListFragment : BaseMvvmFragment<FragmentWishListBinding, WishListViewM
             { item, viewType, isAlreadyRendered, viewBinding ->
                 val itemView = viewBinding as ItemWishListBinding
                 with(itemView) {
-                    val productModel = ItemModel(percent = null, imageurl = item.imageUrls!![0])
+                    val productModel = ItemModel()
+                    if(item.imageUrls!!.isNotEmpty()) {
+                        productModel.imageurl = item.imageUrls!![0]
+                    }
                     productView.setViewData(productModel)
                     title.text = item.name
                     subTitle.text = item.description

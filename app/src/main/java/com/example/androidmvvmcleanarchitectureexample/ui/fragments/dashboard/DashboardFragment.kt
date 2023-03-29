@@ -112,12 +112,14 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardVi
                 with(itemView) {
                     val productModel = ItemModel(
                         percent = null,
-                        imageurl = item.imageUrls!![0],
                         favouriteIconVisibility = true,
                         favouriteIconSelected = false,
                         previousPrice = item.previousPrice,
                         currentPrice = item.currentPrice
                     )
+                    if(item.imageUrls!!.isNotEmpty()) {
+                        productModel.imageurl = item.imageUrls!![0]
+                    }
                     productView.setViewData(productModel)
                     title.text = item.name
                     productView.favouriteIconClick = {
@@ -225,9 +227,9 @@ class DashboardFragment : BaseMvvmFragment<FragmentDashboardBinding, DashboardVi
                 val itemView = viewBinding as ItemShopCategoryBinding
                 with(itemView) {
                     name.text = item.name
-                    Glide.with(requireActivity())
+                    item.imgUrl?.let { Glide.with(requireActivity())
                         .load(item.imgUrl)
-                        .into(image)
+                        .into(image) }
                     root.setOnClickListener {
                         findNavController().navigate(
                             DashboardFragmentDirections.actionDashboardFragmentToProductsFragment(

@@ -174,12 +174,15 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
             with(itemView) {
                 val productModel = ItemModel(
                     percent = null,
-                    imageurl = item.imageUrls!![0],
                     favouriteIconVisibility = true,
                     favouriteIconSelected = false,
                     previousPrice = item.previousPrice,
                     currentPrice = item.currentPrice
                 )
+
+                if(item.imageUrls!!.isNotEmpty()) {
+                    productModel.imageurl = item.imageUrls!![0]
+                }
 
                 image.favouriteIconClick = {
                     viewModel.addProductToWishList(item._id!!)
@@ -226,12 +229,15 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
                 with(itemView) {
                     val productModel = ItemModel(
                         percent = null,
-                        imageurl = item.imageUrls!![0],
                         favouriteIconVisibility = true,
                         favouriteIconSelected = false,
                         previousPrice = item.previousPrice,
                         currentPrice = item.currentPrice
                     )
+                    if(item.imageUrls!!.isNotEmpty()) {
+                        productModel.imageurl = item.imageUrls!![0]
+                    }
+
                     productView.setViewData(productModel)
                     title.text = item.name
 

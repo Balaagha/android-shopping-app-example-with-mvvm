@@ -139,12 +139,14 @@ private fun initProductRvVertical() {
         with(itemView) {
             val productModel = ItemModel(
                 percent = null,
-                imageurl = item.imageUrls!![0],
                 favouriteIconVisibility = false,
                 favouriteIconSelected = false,
                 previousPrice = item.previousPrice,
                 currentPrice = item.currentPrice
             )
+            if(item.imageUrls!!.isNotEmpty()) {
+                productModel.imageurl = item.imageUrls!![0]
+            }
             productView.setViewData(productModel)
             productView.getPercentText().setTextSize(TypedValue.COMPLEX_UNIT_SP,8F)
             title.text = item.name
@@ -196,12 +198,14 @@ private fun initProductRvGrid() {
         with(itemView) {
             val productModel = ItemModel(
                 percent = null,
-                imageurl = item.imageUrls!![0],
                 favouriteIconVisibility = true,
                 favouriteIconSelected = false,
                 previousPrice = item.previousPrice,
                 currentPrice = item.currentPrice
             )
+            if(item.imageUrls!!.isNotEmpty()) {
+                productModel.imageurl = item.imageUrls!![0]
+            }
             productView.setViewData(productModel)
             title.text = item.name
             productView.favouriteIconClick = {
