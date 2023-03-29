@@ -1,6 +1,9 @@
 package com.example.data.features.dashboard.services
 
 import com.example.data.features.dashboard.models.*
+import com.example.data.features.dashboard.models.deletecard.DeleteCardResponse
+import com.example.data.features.dashboard.models.getcard.CardResponseData
+import com.example.data.features.dashboard.models.updatecatd.UpdateCardRequestModel
 import com.example.data.features.entry.model.CustomerLoginRequestModel
 import com.example.data.features.entry.model.CustomerLoginResponseModel
 import com.example.data.features.entry.model.CustomerRequestModel
@@ -45,7 +48,10 @@ interface DashboardServices {
     ): Response<Any>
 
     @GET("api/cart")
-    suspend fun getCart(): Response<CartResponse>
+    suspend fun getCart(): Response<CardResponseData>
+
+    @DELETE("api/cart")
+    suspend fun deleteCart(): Response<DeleteCardResponse>
 
     @POST("api/cart")
     suspend fun createCart(
@@ -56,6 +62,12 @@ interface DashboardServices {
     suspend fun addToCart(
         @Query("productId") productId: String
     ): Response<Any>
+
+    @PUT("api/cart")
+    suspend fun updateCart(
+        @Body request: UpdateCardRequestModel
+    ): Response<CardResponseData>
+
 
     @GET("api/wishlist")
     suspend fun getWishList(): Response<WishListResponse>

@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.example.core.viewmodel.BaseViewModel
 import com.example.data.base.models.EmptyRequest
 import com.example.data.features.dashboard.models.*
+import com.example.data.features.dashboard.models.getcard.CardResponseData
 import com.example.data.features.dashboard.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -30,7 +31,7 @@ class ProductViewModel @Inject constructor(
 
     private val orderResult = MutableLiveData<Boolean>()
 
-    private val cartListResult = MutableLiveData<CartResponse>()
+    private val cartListResult = MutableLiveData<CardResponseData>()
 
     private val cartListFailResult = MutableLiveData<Boolean>()
 
@@ -51,7 +52,7 @@ class ProductViewModel @Inject constructor(
         return cartListFailResult
     }
 
-    fun getCartResult() : MutableLiveData<CartResponse> {
+    fun getCartResult() : MutableLiveData<CardResponseData> {
 
         return cartListResult
     }

@@ -8,5 +8,6 @@ data class CreateOrder(
     val status: String? = null,
     val email: String? = null,
     val mobile: String? = null,
-    val products: ArrayList<OrderContent>? = null
+    val products: ArrayList<OrderContent>? = null,
+    val customerId: String? = null
 )

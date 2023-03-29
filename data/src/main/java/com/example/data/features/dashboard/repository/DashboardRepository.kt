@@ -7,6 +7,9 @@ import com.example.data.base.repository.BaseRepository
 import com.example.data.features.common.model.SampleResponseModel
 import com.example.data.features.common.services.CommonFlowServices
 import com.example.data.features.dashboard.models.*
+import com.example.data.features.dashboard.models.deletecard.DeleteCardResponse
+import com.example.data.features.dashboard.models.getcard.CardResponseData
+import com.example.data.features.dashboard.models.updatecatd.UpdateCardRequestModel
 import com.example.data.features.dashboard.services.DashboardServices
 import com.example.data.features.entry.model.CustomerLoginRequestModel
 import com.example.data.features.entry.model.CustomerLoginResponseModel
@@ -32,8 +35,11 @@ interface DashboardRepository {
 
     suspend fun createOrder(requestData: CreateOrder): DataWrapper<Response<Any>>
 
+    suspend fun getCart(): DataWrapper<Response<CardResponseData>>
 
-    suspend fun getCart(): DataWrapper<Response<CartResponse>>
+    suspend fun deleteCart(): DataWrapper<Response<DeleteCardResponse>>
+
+    suspend fun updateCart(requestData: UpdateCardRequestModel): DataWrapper<Response<CardResponseData>>
 
     suspend fun createCart(requestData: CreateCart): DataWrapper<Response<Any>>
 
@@ -90,9 +96,23 @@ class DashboardRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCart(): DataWrapper<Response<CartResponse>> {
+    override suspend fun getCart(): DataWrapper<Response<CardResponseData>> {
         return launchApiCall {
             services.getCart()
+        }
+    }
+
+    override suspend fun deleteCart(): DataWrapper<Response<DeleteCardResponse>> {
+        return launchApiCall {
+            services.deleteCart()
+        }
+    }
+
+    override suspend fun updateCart(requestData: UpdateCardRequestModel): DataWrapper<Response<CardResponseData>> {
+        return launchApiCall {
+            services.updateCart(
+                request = requestData
+            )
         }
     }
 

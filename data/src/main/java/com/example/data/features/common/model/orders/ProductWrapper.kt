@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ProductWrapper(
     @SerializedName("cartQuantity")
-    val cartQuantity: Int? = 0,
+    var cartQuantity: Int = 0,
     @SerializedName("_id")
     val id: String? = "",
     @SerializedName("product")

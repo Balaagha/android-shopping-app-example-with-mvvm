@@ -17,12 +17,10 @@ import com.example.common.adapters.genericadapter.GenericAdapter
 import com.example.core.view.BaseMvvmFragment
 import com.example.data.features.dashboard.models.*
 import com.example.data.features.entry.model.CustomerResponseModel
-import com.example.data.helper.manager.UserDataManager
 import com.example.uitoolkit.custom.models.ItemModel
 import com.example.uitoolkit.utils.ItemDecoration
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewModel>(
@@ -99,7 +97,9 @@ class ProductFragment : BaseMvvmFragment<FragmentProductBinding, ProductViewMode
 
         viewModel.getCartResult().observe(viewLifecycleOwner) {
             Log.d("TAG", "onViewCreated: ")
-            customer = it.customerId
+            it.customerData?.let { mCustomerData ->
+                customer = mCustomerData
+            }
         }
 
         viewModel.getCartListFailResult().observe(viewLifecycleOwner) {

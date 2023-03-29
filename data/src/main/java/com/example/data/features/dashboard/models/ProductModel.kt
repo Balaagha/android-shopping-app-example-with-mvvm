@@ -14,4 +14,5 @@ data class ProductModel(
     val categories: String? = null,
     val date: String? = null,
     val description: String? = null,
+    val count: Int = 0,
 ): java.io.Serializable

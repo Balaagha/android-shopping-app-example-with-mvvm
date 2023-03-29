@@ -5,6 +5,7 @@ import com.example.data.base.models.EmptyRequest
 import com.example.data.base.usecase.BaseUseCaseForNetwork
 import com.example.data.features.dashboard.models.CartResponse
 import com.example.data.features.dashboard.models.CategoryModel
+import com.example.data.features.dashboard.models.getcard.CardResponseData
 import com.example.data.features.dashboard.repository.DashboardRepository
 import com.example.data.features.entry.model.CustomerRequestModel
 import com.example.data.features.entry.model.CustomerResponseModel
@@ -14,9 +15,9 @@ import javax.inject.Inject
 
 class GetCartUseCase @Inject constructor(
     private val repository: DashboardRepository
-) : BaseUseCaseForNetwork<CartResponse, EmptyRequest>() {
+) : BaseUseCaseForNetwork<CardResponseData, EmptyRequest>() {
 
-    override suspend fun run(params: EmptyRequest): DataWrapper<Response<CartResponse>> {
+    override suspend fun run(params: EmptyRequest): DataWrapper<Response<CardResponseData>> {
         return repository.getCart()
     }
 

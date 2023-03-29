@@ -60,4 +60,12 @@ class MainActivity : BaseActivity() {
         startActivity(Intent(this, LoginActivity::class.java))
     }
 
+    fun changeBottomNavigationState(isDefault: Boolean) {
+        if(isDefault){
+            binding.bottomNav.setBackgroundResource(R.drawable.shape_bottom_nav_default)
+        } else {
+            binding.bottomNav.setBackgroundResource(R.drawable.shape_bottom_nav)
+        }
+    }
+
 }
