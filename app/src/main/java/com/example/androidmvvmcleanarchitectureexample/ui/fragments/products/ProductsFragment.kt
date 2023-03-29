@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -57,8 +58,6 @@ class ProductsFragment : BaseMvvmFragment<FragmentProductsBinding, ProductsViewM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        manager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        gridLayoutManager = GridLayoutManager(requireContext(), 2)
         id = args.id
         viewModel.getProducts(id)
     }
@@ -66,6 +65,8 @@ class ProductsFragment : BaseMvvmFragment<FragmentProductsBinding, ProductsViewM
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        manager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        gridLayoutManager = GridLayoutManager(requireContext(), 2)
         initProductRvGrid()
         setUpScrollListener(gridLayoutManager)
 

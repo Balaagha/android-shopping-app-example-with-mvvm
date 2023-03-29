@@ -45,22 +45,25 @@
                     android:textSize="16sp"/>
 
                 <ImageView
+                    android:id="@+id/icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="18dp"
-                    android:src="@drawable/ic_heart_bold_blue"/>
+                    android:layout_marginEnd="18dp" />
 
             </LinearLayout>
 
 
-            <com.example.uitoolkit.custom.CustomMaterialTextView
+            <TextView
                 android:id="@+id/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:text_appearance="@style/RegularNunitoBlack"
-                app:text="Iphone 13 pro max"
-                app:text_color="@color/colorPrimaryDark"
-                android:textSize="14sp"/>
+                style="@style/RegularNunitoBlack"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Iphone 13 pro max"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp"
+                />
 
 
 
@@ -68,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:layout_marginTop="20dp">
 
                 <Button

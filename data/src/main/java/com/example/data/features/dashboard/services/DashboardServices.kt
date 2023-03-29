@@ -58,9 +58,9 @@ interface DashboardServices {
         @Body request: CreateCart
     ): Response<Any>
 
-    @PUT("api/cart")
+    @PUT("api/cart/{productId}")
     suspend fun addToCart(
-        @Query("productId") productId: String
+        @Path("productId") productId: String
     ): Response<Any>
 
     @PUT("api/cart")
@@ -72,14 +72,14 @@ interface DashboardServices {
     @GET("api/wishlist")
     suspend fun getWishList(): Response<WishListResponse>
 
-    @PUT("api/wishlist")
+    @PUT("api/wishlist/{productId}" )
     suspend fun addProductToWishList(
-        @Query("productId") productId: String
+        @Path("productId") productId: String
     ): Response<Any>
 
-    @DELETE("api/wishlist")
+    @DELETE("api/wishlist/{productId}")
     suspend fun deleteProductFromWishList(
-        @Query("productId") productId: String
+        @Path("productId") productId: String
     ): Response<Any>
 
     @POST("api/wishlist")
