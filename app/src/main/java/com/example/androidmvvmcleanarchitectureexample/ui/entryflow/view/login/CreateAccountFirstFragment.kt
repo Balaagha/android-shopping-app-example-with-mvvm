@@ -52,7 +52,7 @@ class CreateAccountFirstFragment :
             ).forEach {
                 val textWatcherDelegate = InputTextWatcherDelegate(
                     inputLayout = it,
-                    minTextLength = 8,
+                    minTextLength = 3,
                     maxTextLength = 50,
                     afterTextChangedBlock = { value, isValid ->
                         btnContinue.isEnabled = true

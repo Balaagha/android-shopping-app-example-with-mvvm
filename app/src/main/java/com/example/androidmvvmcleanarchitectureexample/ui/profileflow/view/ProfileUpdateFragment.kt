@@ -104,7 +104,7 @@ class ProfileUpdateFragment :
             ).forEach {
                 val textWatcherDelegate = InputTextWatcherDelegate(
                     inputLayout = it,
-                    minTextLength = if (it == eTvGender) 2 else 7,
+                    minTextLength = if (it == eTvPhoneNumber) 7 else 2,
                     maxTextLength = if (it == eTvPhoneNumber) 7 else 50,
                     afterTextChangedBlock = { value, isValid ->
                         btnContinue.isEnabled = true

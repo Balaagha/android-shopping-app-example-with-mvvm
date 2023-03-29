@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.bumptech.glide.Glide
 import com.example.androidmvvmcleanarchitectureexample.R
 import com.example.androidmvvmcleanarchitectureexample.databinding.ActivityMainBinding
 import com.example.androidmvvmcleanarchitectureexample.ui.entryflow.activity.LoginActivity
@@ -27,14 +28,14 @@ class MainActivity : BaseActivity() {
 
     private val loadingDialog: LoadingPopup? by lazy {
         LoadingPopup.getInstance(this).customLayoutLoading()
-            .setCustomLottieAnimation("Loading.json",
+            .setCustomViewID(R.layout.dialog_custom_image_loading_popup,
                 android.R.color.background_dark)
             .noIntentionalDelay()
             .setBackgroundOpacity(40)
             .cancelable(false)
             .setCustomizationBlock { context, rootView ->
-//                Glide.with(context).load(R.drawable.ios_loading)
-//                    .into(rootView.findViewById(R.id.gifImageView))
+                Glide.with(context).load(R.drawable.ios_loading)
+                    .into(rootView.findViewById(R.id.gifImageView))
             }
             .build()
     }

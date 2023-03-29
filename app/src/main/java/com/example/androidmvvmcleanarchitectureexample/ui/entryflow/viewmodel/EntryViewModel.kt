@@ -1,6 +1,7 @@
 package com.example.androidmvvmcleanarchitectureexample.ui.entryflow.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.example.androidmvvmcleanarchitectureexample.helper.toCustomerModelUiData
 import com.example.androidmvvmcleanarchitectureexample.ui.entryflow.model.CustomerModelUiData
@@ -88,8 +89,12 @@ class EntryViewModel @Inject constructor(
                     getCustomerUseCase.execute(
                         EmptyRequest,
                         successOperation = { customerData ->
-                            userProfileUiData = customerData.invoke()?.toCustomerModelUiData() ?: CustomerModelUiData()
-                            eventUiAction.postValue(LoginFragment::class.java to GO_TO_PROFILE_SCREEN)
+                            try {
+                                userProfileUiData = customerData.invoke()?.toCustomerModelUiData() ?: CustomerModelUiData()
+                                eventUiAction.postValue(LoginFragment::class.java to GO_TO_PROFILE_SCREEN)
+                            } catch (e: Exception){
+                                eventUiAction.postValue(LoginFragment::class.java to GO_TO_DASHBOARD)
+                            }
                         },failOperation = {
                             eventUiAction.postValue(LoginFragment::class.java to GO_TO_DASHBOARD)
                         }

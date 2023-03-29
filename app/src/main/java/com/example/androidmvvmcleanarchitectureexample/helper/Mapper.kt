@@ -11,7 +11,6 @@ fun CustomerResponseModel.toCustomerModelUiData(): CustomerModelUiData {
         data.userName.set(this.login)
         data.userNameForPath = this.login ?: ""
         data.gender.set(this.gender)
-        data.telephone.set(this.telephone!!.take(7))
         data.telephone.set(this.telephone?.takeLast(7) ?: "")
         data.avatarUrl.set(this.avatarUrl)
     }
